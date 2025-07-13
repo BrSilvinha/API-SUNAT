@@ -1,215 +1,238 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<UBLExtensions>
-  <ext:UBLExtension>
-    <ext:ExtensionContent>
-      <ds:SignedInfo>
-        <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></ds:CanonicalizationMethod>
-        <ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></ds:SignatureMethod>
-        <ds:Reference URI="">
-          <ds:Transforms>
-            <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform>
-            <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></ds:Transform>
-          </ds:Transforms>
-          <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></ds:DigestMethod>
-          <ds:DigestValue>v1HIs3wVbykf6/xViabVHaYTem8HWYnt6y8J9lIo6t4=</ds:DigestValue>
-        </ds:Reference>
-      </ds:SignedInfo>
-      <ds:SignatureValue>EAPY2M/WH1nwJM1lSjr/kuSfv/Rok34v/5ZfmlUQMN6zH9kYElz5i73LnbC8uDWxDmdb4cjtCgSD+knapwRU6hftdsyf3g8xsHrbV/7Ta96b5EBwiCFrMP6mFdM8P3jRM4FcwLV8Payr980iyv72h83gWo0b4wt2rFB1f9dNyJryGrhNGc5ByZCVIp1T7jwxwF8UquVjMJ0ysIEnsxavRWgPNPzG5oPTJ6wbRensX0hpu7+TbMl5Ppckimyc1lUJzKJtHdFT1Sr0EHPpSX2/9Jr29iQUk/WHLsWR6N6zxKFxz3WZOcGCMULSDnMXQE/Sc5+Sg/Aqn91M9FQUdmsMvg==</ds:SignatureValue>
-      <ds:KeyInfo>
-        <ds:X509Data>
-          <ds:X509Certificate>MIIFnjCCBIagAwIBAgIIA6akYTIEsrwwDQYJKoZIhvcNAQELBQAwRjEkMCIGA1UEAwwbTGxhbWEucGUgU0hBMjU2IFN0YW5kYXJkIENBMREwDwYDVQQKDAhMTEFNQS5QRTELMAkGA1UEBhMCUEUwHhcNMjMwMjI0MjExNzExWhcNMjYwMjIzMjExNzAwWjCCATgxQjBABgNVBAkMOUNBTC4gUEFSUVVFIElORFVTVFJJQUwgTFQuIDQgTVouIEUgWi5JLiBQQVJRVUUgSU5EVVNUUklBTDEuMCwGCSqGSIb3DQEJARYfY2FybG9zLmFycmlvbGFAZ3J1cG9jaGlhcHBlLmNvbTEsMCoGA1UEAwwjU09GVFdBUkUgREUgRkFDVFVSQUNJT04gRUxFQ1RST05JQ0ExLDAqBgNVBAsMI0ZBQ1RVUkEgRUxFQ1RST05JQ0EgUlVDIDIwMTAzMTI5MDYxMSEwHwYDVQQLDBhWYWxpZGFkbyBwb3IgTGxhbWEucGUgRVIxITAfBgNVBAoMGENPTUVSQ0lBTCBMQVZBR05BIFMuQS5DLjETMBEGA1UEBwwKTEFNQkFZRVFVRTELMAkGA1UEBhMCUEUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCeNnUF1ubEHSYm3fVE7G1KhH01o0r+PJPWG/t0+XLAqmqtgnrOpkBpemu3711jCI///b1/q6lvpeTrcJVR6wBqI1PKGmxMuxI8/Wt2TZ213DqroqZnDcYyIWPOzJCEpau9XVw44Fb9CNqzHiz0yoLjy+pu2ZkTOj2+dlhWGkljOjx+c7/vCBpZL4uPLVrZhrThFIh8fHg8K6HaV0CA3BkkkVshqhCZ2h8m7/3K843EWmTmQc7OrNkmHkuTWyjeSaX3seq4zLlOknS2MX67fyfP9VACkKM51xJ64ztdoDSp4PcxYpnYudHMqRa7KGGsca2sL9FqMaisZzEfeiB3CjbjAgMBAAGjggGaMIIBljAMBgNVHRMBAf8EAjAAMB8GA1UdIwQYMBaAFF2IW63rZfv+aKLk2W89V3Ki7yuZMGcGCCsGAQUFBwEBBFswWTA1BggrBgEFBQcwAoYpaHR0cDovL2NydC5sbGFtYS5wZS9sbGFtYXBlc3RhbmRhcmRjYS5jZXIwIAYIKwYBBQUHMAGGFGh0dHA6Ly9vY3NwLmxsYW1hLnBlMCoGA1UdEQQjMCGBH2Nhcmxvcy5hcnJpb2xhQGdydXBvY2hpYXBwZS5jb20wRgYDVR0gBD8wPTA7Bg0rBgEEAYOXdwABAAMBMCowKAYIKwYBBQUHAgEWHGh0dHBzOi8vbGxhbWEucGUvcmVwb3NpdG9yeS8wHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMDoGA1UdHwQzMDEwL6AtoCuGKWh0dHA6Ly9jcmwubGxhbWEucGUvbGxhbWFwZXN0YW5kYXJkY2EuY3JsMB0GA1UdDgQWBBTtcyJ6DapoAmqrWQeMwPMQFFnK7DAOBgNVHQ8BAf8EBAMCBsAwDQYJKoZIhvcNAQELBQADggEBAEL+9dAYFfWm3UAzlkK251Y6k7iODmw44inWI1QCEW5XMDCTrCBtrxdOegZHV3OiksxqQKxJHDMTZeS0VQx9EysXDbCT8W6+h8osyK+3NsQ/RE2bWKXOQCDsvBx1fZBvkzxijkivdh532LTAumUCVbKE+NKWPAs2YqhvooUHzgqrCSEUiG59td2obu6rMrDfbQkZg3BtEPazBsyl1RNKfmW3hevZbaAdqDYO0QhXALF5OxiNlebtK9HvnXneO7uFero76feKxEEoguoy08CuO6tcmYbvkFTFSNz+TOF2MvLRJ31d8NXWsqlowk5ILgRWwHIWyaGOrZ0ZPJWk4UMcyxo=</ds:X509Certificate>
-        </ds:X509Data>
-      </ds:KeyInfo>
-    </ext:ExtensionContent>
-  </ext:UBLExtension>
-</UBLExtensions>
-<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
-    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
-<UBLSignature>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+  <UBLExtensions>
+    <ext:UBLExtension>
+      <ext:ExtensionContent>
+        <ds:Signature>
+          <ds:SignedInfo>
+            <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></ds:CanonicalizationMethod>
+            <ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></ds:SignatureMethod>
+            <ds:Reference URI="">
+              <ds:Transforms>
+                <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform>
+                <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></ds:Transform>
+              </ds:Transforms>
+              <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></ds:DigestMethod>
+              <ds:DigestValue>CBbOAW3Yn5QzBf1FQYqcl2GDnrlcxOhPtGVHqA7cxOE=</ds:DigestValue>
+            </ds:Reference>
+          </ds:SignedInfo>
+          <ds:SignatureValue>nWsjuskDrCH813wSbcbiEtooZToM7g2b4/Tip3QdhTZ6SW4LwTcD/DqHQl292A/dOCnwgc4h2B45KwicrbKG5LPeE4pVvajKT/X/WRK6nnrmQoCuX5212RVJPecqCAGB8fXC9aToY8DxjBHoLsASJnTHusslgTik9+5L/ALnfRbSc/U6JX9qvsLjScYKZJ7D86j061gWbK+t/Iz0R+C9eoHjDJfQahj+ZcyxMXirwLz4ZEDvVvCjvPju4UbzRqtgwYg75qclmutAqP9L1qUZE7HpR3SyMEYXiTN0zUjNxqCUAhMha2Js5oOKgfWlpElRdFQpjwYTJL0tKtdVO22uoA==</ds:SignatureValue>
+          <ds:KeyInfo>
+            <ds:X509Data>
+              <ds:X509Certificate>MIIFnjCCBIagAwIBAgIIA6akYTIEsrwwDQYJKoZIhvcNAQELBQAwRjEkMCIGA1UEAwwbTGxhbWEucGUgU0hBMjU2IFN0YW5kYXJkIENBMREwDwYDVQQKDAhMTEFNQS5QRTELMAkGA1UEBhMCUEUwHhcNMjMwMjI0MjExNzExWhcNMjYwMjIzMjExNzAwWjCCATgxQjBABgNVBAkMOUNBTC4gUEFSUVVFIElORFVTVFJJQUwgTFQuIDQgTVouIEUgWi5JLiBQQVJRVUUgSU5EVVNUUklBTDEuMCwGCSqGSIb3DQEJARYfY2FybG9zLmFycmlvbGFAZ3J1cG9jaGlhcHBlLmNvbTEsMCoGA1UEAwwjU09GVFdBUkUgREUgRkFDVFVSQUNJT04gRUxFQ1RST05JQ0ExLDAqBgNVBAsMI0ZBQ1RVUkEgRUxFQ1RST05JQ0EgUlVDIDIwMTAzMTI5MDYxMSEwHwYDVQQLDBhWYWxpZGFkbyBwb3IgTGxhbWEucGUgRVIxITAfBgNVBAoMGENPTUVSQ0lBTCBMQVZBR05BIFMuQS5DLjETMBEGA1UEBwwKTEFNQkFZRVFVRTELMAkGA1UEBhMCUEUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCeNnUF1ubEHSYm3fVE7G1KhH01o0r+PJPWG/t0+XLAqmqtgnrOpkBpemu3711jCI///b1/q6lvpeTrcJVR6wBqI1PKGmxMuxI8/Wt2TZ213DqroqZnDcYyIWPOzJCEpau9XVw44Fb9CNqzHiz0yoLjy+pu2ZkTOj2+dlhWGkljOjx+c7/vCBpZL4uPLVrZhrThFIh8fHg8K6HaV0CA3BkkkVshqhCZ2h8m7/3K843EWmTmQc7OrNkmHkuTWyjeSaX3seq4zLlOknS2MX67fyfP9VACkKM51xJ64ztdoDSp4PcxYpnYudHMqRa7KGGsca2sL9FqMaisZzEfeiB3CjbjAgMBAAGjggGaMIIBljAMBgNVHRMBAf8EAjAAMB8GA1UdIwQYMBaAFF2IW63rZfv+aKLk2W89V3Ki7yuZMGcGCCsGAQUFBwEBBFswWTA1BggrBgEFBQcwAoYpaHR0cDovL2NydC5sbGFtYS5wZS9sbGFtYXBlc3RhbmRhcmRjYS5jZXIwIAYIKwYBBQUHMAGGFGh0dHA6Ly9vY3NwLmxsYW1hLnBlMCoGA1UdEQQjMCGBH2Nhcmxvcy5hcnJpb2xhQGdydXBvY2hpYXBwZS5jb20wRgYDVR0gBD8wPTA7Bg0rBgEEAYOXdwABAAMBMCowKAYIKwYBBQUHAgEWHGh0dHBzOi8vbGxhbWEucGUvcmVwb3NpdG9yeS8wHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMDoGA1UdHwQzMDEwL6AtoCuGKWh0dHA6Ly9jcmwubGxhbWEucGUvbGxhbWFwZXN0YW5kYXJkY2EuY3JsMB0GA1UdDgQWBBTtcyJ6DapoAmqrWQeMwPMQFFnK7DAOBgNVHQ8BAf8EBAMCBsAwDQYJKoZIhvcNAQELBQADggEBAEL+9dAYFfWm3UAzlkK251Y6k7iODmw44inWI1QCEW5XMDCTrCBtrxdOegZHV3OiksxqQKxJHDMTZeS0VQx9EysXDbCT8W6+h8osyK+3NsQ/RE2bWKXOQCDsvBx1fZBvkzxijkivdh532LTAumUCVbKE+NKWPAs2YqhvooUHzgqrCSEUiG59td2obu6rMrDfbQkZg3BtEPazBsyl1RNKfmW3hevZbaAdqDYO0QhXALF5OxiNlebtK9HvnXneO7uFero76feKxEEoguoy08CuO6tcmYbvkFTFSNz+TOF2MvLRJ31d8NXWsqlowk5ILgRWwHIWyaGOrZ0ZPJWk4UMcyxo=</ds:X509Certificate>
+            </ds:X509Data>
+          </ds:KeyInfo>
+        </ds:Signature>
+      </ext:ExtensionContent>
+    </ext:UBLExtension>
+  </UBLExtensions>
+  <ext:UBLExtensions>
+    <ext:UBLExtension>
+      <ext:ExtensionContent>
+        <ds:Signature>
+          <ds:SignedInfo>
+            <ds:CanonicalizationMethod Algorithm=""></ds:CanonicalizationMethod>
+            <ds:SignatureMethod Algorithm=""></ds:SignatureMethod>
+            <ds:Reference URI="">
+              <ds:Transforms></ds:Transforms>
+              <ds:DigestMethod Algorithm=""></ds:DigestMethod>
+              <ds:DigestValue></ds:DigestValue>
+            </ds:Reference>
+          </ds:SignedInfo>
+          <ds:SignatureValue></ds:SignatureValue>
+          <ds:KeyInfo>
+            <ds:X509Data>
+              <ds:X509Certificate></ds:X509Certificate>
+            </ds:X509Data>
+          </ds:KeyInfo>
+        </ds:Signature>
+      </ext:ExtensionContent>
+    </ext:UBLExtension>
+  </ext:UBLExtensions>
+  <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+  <cbc:CustomizationID schemeAgencyName="PE:SUNAT">2.0</cbc:CustomizationID>
+  <cbc:ProfileID schemeAgencyName="PE:SUNAT" schemeName="Tipo de Operacion" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo51">0101</cbc:ProfileID>
   <cbc:ID>F003-123456</cbc:ID>
-  <cac:SignatoryParty>
-    <cac:PartyIdentification>
-      <cbc:ID>20123456786</cbc:ID>
-    </cac:PartyIdentification>
-    <cac:PartyName>
-      <cbc:Name>RODRIGO S.A.C</cbc:Name>
-    </cac:PartyName>
-  </cac:SignatoryParty>
-  <cac:DigitalSignatureAttachment>
-    <cac:ExternalReference>
-      <cbc:URI>#SignatureSP</cbc:URI>
-    </cac:ExternalReference>
-  </cac:DigitalSignatureAttachment>
-</UBLSignature>
-    <cbc:CustomizationID schemeAgencyName="PE:SUNAT">2.0</cbc:CustomizationID>
-    <cbc:ProfileID schemeAgencyName="PE:SUNAT" schemeName="Tipo de Operacion" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo51">0101</cbc:ProfileID>
+  <cbc:IssueDate>2024-06-07</cbc:IssueDate>
+  <cbc:IssueTime>10:30:00</cbc:IssueTime>
+  <cbc:DueDate>2024-06-07</cbc:DueDate>
+  <cbc:InvoiceTypeCode listAgencyName="PE:SUNAT" listID="0101" listName="Tipo de Documento" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01" name="Tipo de Operacion">01</cbc:InvoiceTypeCode>
+  <cbc:DocumentCurrencyCode schemeAgencyName="United Nations Economic Commission for Europe" schemeID="ISO 4217 Alpha" schemeName="Currency">PEN</cbc:DocumentCurrencyCode>
+  <cbc:LineCountNumeric>1</cbc:LineCountNumeric>
+  <cac:Signature>
     <cbc:ID>F003-123456</cbc:ID>
-    <cbc:IssueDate>2024-06-07</cbc:IssueDate>
-    <cbc:IssueTime>10:30:00</cbc:IssueTime>
-    <cbc:InvoiceTypeCode listAgencyName="PE:SUNAT" listID="0101" listName="Tipo de Documento" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01" name="Tipo de Operacion">01</cbc:InvoiceTypeCode>
-    <cbc:DocumentCurrencyCode schemeAgencyName="United Nations Economic Commission for Europe" schemeID="ISO 4217 Alpha" schemeName="Currency">PEN</cbc:DocumentCurrencyCode>
-    <cbc:LineCountNumeric>1</cbc:LineCountNumeric>
-    <cac:AccountingSupplierParty>
-        <cac:Party>
-            <cac:PartyIdentification>
-                <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="6" schemeName="Documento de Identidad" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">20123456786</cbc:ID>
-            </cac:PartyIdentification>
-            <cac:PartyName>
-                <cbc:Name>RODRIGO S.A.C</cbc:Name>
-            </cac:PartyName>
-            <cac:RegistrationAddress>
-                <cbc:ID schemeAgencyName="PE:INEI" schemeName="Ubigeos">140101</cbc:ID>
-                <cbc:AddressTypeCode schemeAgencyName="PE:SUNAT" schemeName="Establecimientos anexos">0000</cbc:AddressTypeCode>
-                <cbc:CityName>LIMA</cbc:CityName>
-                <cbc:CountrySubentity>LIMA</cbc:CountrySubentity>
-                <cbc:District>LIMA</cbc:District>
-                <cac:AddressLine>
-                    <cbc:Line>Av. Principal 123</cbc:Line>
-                </cac:AddressLine>
-                <cac:Country>
-                    <cbc:IdentificationCode schemeAgencyName="United Nations Economic Commission for Europe" schemeID="ISO 3166-1" schemeName="Country">PE</cbc:IdentificationCode>
-                </cac:Country>
-            </cac:RegistrationAddress>
-            <cac:PartyTaxScheme>
-                <cbc:RegistrationName>RODRIGO S.A.C</cbc:RegistrationName>
-                <cbc:CompanyID schemeAgencyName="PE:SUNAT" schemeID="6" schemeName="SUNAT:Identificador de Documento de Identidad" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">20123456786</cbc:CompanyID>
-                <cac:TaxScheme>
-                    <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="6" schemeName="SUNAT:Identificador de Documento de Identidad" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">20123456786</cbc:ID>
-                </cac:TaxScheme>
-            </cac:PartyTaxScheme>
-            <cac:PartyLegalEntity>
-                <cbc:RegistrationName>RODRIGO S.A.C</cbc:RegistrationName>
-                <cac:RegistrationAddress>
-                    <cbc:ID schemeAgencyName="PE:INEI" schemeName="Ubigeos">140101</cbc:ID>
-                    <cbc:AddressTypeCode schemeAgencyName="PE:SUNAT" schemeName="Establecimientos anexos">0000</cbc:AddressTypeCode>
-                    <cbc:CityName>LIMA</cbc:CityName>
-                    <cbc:CountrySubentity>LIMA</cbc:CountrySubentity>
-                    <cbc:District>LIMA</cbc:District>
-                    <cac:AddressLine>
-                        <cbc:Line>Av. Principal 123</cbc:Line>
-                    </cac:AddressLine>
-                    <cac:Country>
-                        <cbc:IdentificationCode schemeAgencyName="United Nations Economic Commission for Europe" schemeID="ISO 3166-1" schemeName="Country">PE</cbc:IdentificationCode>
-                    </cac:Country>
-                </cac:RegistrationAddress>
-            </cac:PartyLegalEntity>
-            <cac:Contact></cac:Contact>
-        </cac:Party>
-    </cac:AccountingSupplierParty>
-    <cac:AccountingCustomerParty>
-        <cac:Party>
-            <cac:PartyIdentification>
-                <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="1" schemeName="Documento de Identidad" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">12345678</cbc:ID>
-            </cac:PartyIdentification>
-            <cac:PartyName>
-                <cbc:Name>JUAN PEREZ</cbc:Name>
-            </cac:PartyName>
-            <cac:RegistrationAddress>
-                <cbc:ID schemeAgencyName="PE:INEI" schemeName="Ubigeos">140101</cbc:ID>
-                <cbc:AddressTypeCode schemeAgencyName="PE:SUNAT" schemeName="Establecimientos anexos">0000</cbc:AddressTypeCode>
-                <cbc:CityName>LIMA</cbc:CityName>
-                <cbc:CountrySubentity>LIMA</cbc:CountrySubentity>
-                <cbc:District>LIMA</cbc:District>
-                <cac:AddressLine>
-                    <cbc:Line>Calle Secundaria 456</cbc:Line>
-                </cac:AddressLine>
-                <cac:Country>
-                    <cbc:IdentificationCode schemeAgencyName="United Nations Economic Commission for Europe" schemeID="ISO 3166-1" schemeName="Country">PE</cbc:IdentificationCode>
-                </cac:Country>
-            </cac:RegistrationAddress>
-            <cac:PartyTaxScheme>
-                <cbc:RegistrationName>JUAN PEREZ</cbc:RegistrationName>
-                <cbc:CompanyID schemeAgencyName="PE:SUNAT" schemeID="1" schemeName="SUNAT:Identificador de Documento de Identidad" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">12345678</cbc:CompanyID>
-                <cac:TaxScheme>
-                    <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="1" schemeName="SUNAT:Identificador de Documento de Identidad" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">12345678</cbc:ID>
-                </cac:TaxScheme>
-            </cac:PartyTaxScheme>
-            <cac:PartyLegalEntity>
-                <cbc:RegistrationName>JUAN PEREZ</cbc:RegistrationName>
-                <cac:RegistrationAddress>
-                    <cbc:ID schemeAgencyName="PE:INEI" schemeName="Ubigeos">140101</cbc:ID>
-                    <cbc:AddressTypeCode schemeAgencyName="PE:SUNAT" schemeName="Establecimientos anexos">0000</cbc:AddressTypeCode>
-                    <cbc:CityName>LIMA</cbc:CityName>
-                    <cbc:CountrySubentity>LIMA</cbc:CountrySubentity>
-                    <cbc:District>LIMA</cbc:District>
-                    <cac:AddressLine>
-                        <cbc:Line>Calle Secundaria 456</cbc:Line>
-                    </cac:AddressLine>
-                    <cac:Country>
-                        <cbc:IdentificationCode schemeAgencyName="United Nations Economic Commission for Europe" schemeID="ISO 3166-1" schemeName="Country">PE</cbc:IdentificationCode>
-                    </cac:Country>
-                </cac:RegistrationAddress>
-            </cac:PartyLegalEntity>
-            <cac:Contact></cac:Contact>
-        </cac:Party>
-    </cac:AccountingCustomerParty>
-    <cac:PaymentTerms>
-        <cbc:ID>FormaPago</cbc:ID>
-        <cbc:PaymentMeansID>Contado</cbc:PaymentMeansID>
-    </cac:PaymentTerms>
-    <cac:Delivery>
-        <cbc:DeliveryDate>2024-06-07</cbc:DeliveryDate>
-    </cac:Delivery>
+    <cac:SignatoryParty>
+      <cac:PartyIdentification>
+        <cbc:ID>20123456786</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name>RODRIGO S.A.C</cbc:Name>
+      </cac:PartyName>
+    </cac:SignatoryParty>
+    <cac:DigitalSignatureAttachment>
+      <cac:ExternalReference>
+        <cbc:URI>#SignatureSP</cbc:URI>
+      </cac:ExternalReference>
+    </cac:DigitalSignatureAttachment>
+  </cac:Signature>
+  <cac:AccountingSupplierParty>
+    <cac:Party>
+      <cac:PartyIdentification>
+        <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="6" schemeName="Documento de Identidad" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">20123456786</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name>RODRIGO S.A.C</cbc:Name>
+      </cac:PartyName>
+      <cac:RegistrationAddress>
+        <cbc:ID schemeAgencyName="PE:INEI" schemeName="Ubigeos">140101</cbc:ID>
+        <cbc:AddressTypeCode schemeAgencyName="PE:SUNAT" schemeName="Establecimientos anexos">0000</cbc:AddressTypeCode>
+        <cbc:CityName>LIMA</cbc:CityName>
+        <cbc:CountrySubentity>LIMA</cbc:CountrySubentity>
+        <cbc:District>MIRAFLORES</cbc:District>
+        <cac:AddressLine>
+          <cbc:Line>Av. Principal 123 - MIRAFLORES - LIMA - LIMA</cbc:Line>
+        </cac:AddressLine>
+        <cac:Country>
+          <cbc:IdentificationCode schemeAgencyName="United Nations Economic Commission for Europe" schemeID="ISO 3166-1" schemeName="Country">PE</cbc:IdentificationCode>
+        </cac:Country>
+      </cac:RegistrationAddress>
+      <cac:PartyTaxScheme>
+        <cbc:RegistrationName>RODRIGO S.A.C</cbc:RegistrationName>
+        <cbc:CompanyID schemeAgencyName="PE:SUNAT" schemeID="6" schemeName="SUNAT:Identificador de Documento de Identidad" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">20123456786</cbc:CompanyID>
+        <cac:TaxScheme>
+          <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="6" schemeName="SUNAT:Identificador de Documento de Identidad" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">20123456786</cbc:ID>
+        </cac:TaxScheme>
+      </cac:PartyTaxScheme>
+      <cac:PartyLegalEntity>
+        <cbc:RegistrationName>RODRIGO S.A.C</cbc:RegistrationName>
+        <cac:RegistrationAddress>
+          <cbc:ID schemeAgencyName="PE:INEI" schemeName="Ubigeos">140101</cbc:ID>
+          <cbc:AddressTypeCode schemeAgencyName="PE:SUNAT" schemeName="Establecimientos anexos">0000</cbc:AddressTypeCode>
+          <cbc:CityName>LIMA</cbc:CityName>
+          <cbc:CountrySubentity>LIMA</cbc:CountrySubentity>
+          <cbc:District>MIRAFLORES</cbc:District>
+          <cac:AddressLine>
+            <cbc:Line>Av. Principal 123 - MIRAFLORES - LIMA - LIMA</cbc:Line>
+          </cac:AddressLine>
+          <cac:Country>
+            <cbc:IdentificationCode schemeAgencyName="United Nations Economic Commission for Europe" schemeID="ISO 3166-1" schemeName="Country">PE</cbc:IdentificationCode>
+          </cac:Country>
+        </cac:RegistrationAddress>
+      </cac:PartyLegalEntity>
+      <cac:Contact></cac:Contact>
+    </cac:Party>
+  </cac:AccountingSupplierParty>
+  <cac:AccountingCustomerParty>
+    <cac:Party>
+      <cac:PartyIdentification>
+        <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="1" schemeName="Documento de Identidad" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">12345678</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name>JUAN PEREZ</cbc:Name>
+      </cac:PartyName>
+      <cac:RegistrationAddress>
+        <cbc:ID schemeAgencyName="PE:INEI" schemeName="Ubigeos">140101</cbc:ID>
+        <cbc:AddressTypeCode schemeAgencyName="PE:SUNAT" schemeName="Establecimientos anexos">0000</cbc:AddressTypeCode>
+        <cbc:CityName>LIMA</cbc:CityName>
+        <cbc:CountrySubentity>LIMA</cbc:CountrySubentity>
+        <cbc:District>SURCO</cbc:District>
+        <cac:AddressLine>
+          <cbc:Line>Calle Secundaria 456 - SURCO - LIMA - LIMA</cbc:Line>
+        </cac:AddressLine>
+        <cac:Country>
+          <cbc:IdentificationCode schemeAgencyName="United Nations Economic Commission for Europe" schemeID="ISO 3166-1" schemeName="Country">PE</cbc:IdentificationCode>
+        </cac:Country>
+      </cac:RegistrationAddress>
+      <cac:PartyTaxScheme>
+        <cbc:RegistrationName>JUAN PEREZ</cbc:RegistrationName>
+        <cbc:CompanyID schemeAgencyName="PE:SUNAT" schemeID="1" schemeName="SUNAT:Identificador de Documento de Identidad" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">12345678</cbc:CompanyID>
+        <cac:TaxScheme>
+          <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="1" schemeName="SUNAT:Identificador de Documento de Identidad" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">12345678</cbc:ID>
+        </cac:TaxScheme>
+      </cac:PartyTaxScheme>
+      <cac:PartyLegalEntity>
+        <cbc:RegistrationName>JUAN PEREZ</cbc:RegistrationName>
+        <cac:RegistrationAddress>
+          <cbc:ID schemeAgencyName="PE:INEI" schemeName="Ubigeos">140101</cbc:ID>
+          <cbc:AddressTypeCode schemeAgencyName="PE:SUNAT" schemeName="Establecimientos anexos">0000</cbc:AddressTypeCode>
+          <cbc:CityName>LIMA</cbc:CityName>
+          <cbc:CountrySubentity>LIMA</cbc:CountrySubentity>
+          <cbc:District>SURCO</cbc:District>
+          <cac:AddressLine>
+            <cbc:Line>Calle Secundaria 456 - SURCO - LIMA - LIMA</cbc:Line>
+          </cac:AddressLine>
+          <cac:Country>
+            <cbc:IdentificationCode schemeAgencyName="United Nations Economic Commission for Europe" schemeID="ISO 3166-1" schemeName="Country">PE</cbc:IdentificationCode>
+          </cac:Country>
+        </cac:RegistrationAddress>
+      </cac:PartyLegalEntity>
+      <cac:Contact></cac:Contact>
+    </cac:Party>
+  </cac:AccountingCustomerParty>
+  <cac:PaymentTerms>
+    <cbc:ID>FormaPago</cbc:ID>
+    <cbc:PaymentMeansID>Contado</cbc:PaymentMeansID>
+  </cac:PaymentTerms>
+  <cac:TaxTotal>
+    <cbc:TaxAmount currencyID="PEN">18</cbc:TaxAmount>
+    <cac:TaxSubtotal>
+      <cbc:TaxableAmount currencyID="PEN">100</cbc:TaxableAmount>
+      <cbc:TaxAmount currencyID="PEN">18</cbc:TaxAmount>
+      <cac:TaxCategory>
+        <cbc:ID schemeAgencyName="United Nations Economic Commission for Europe" schemeID="UN/ECE 5305" schemeName="Tax Category Identifier">S</cbc:ID>
+        <cbc:Percent>18</cbc:Percent>
+        <cbc:TaxExemptionReasonCode schemeAgencyName="PE:SUNAT" schemeName="Afectacion del IGV" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07">10</cbc:TaxExemptionReasonCode>
+        <cac:TaxScheme>
+          <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="UN/ECE 5153">1000</cbc:ID>
+          <cbc:Name>IGV</cbc:Name>
+          <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+        </cac:TaxScheme>
+      </cac:TaxCategory>
+    </cac:TaxSubtotal>
+  </cac:TaxTotal>
+  <cac:LegalMonetaryTotal>
+    <cbc:LineExtensionAmount currencyID="PEN">100</cbc:LineExtensionAmount>
+    <cbc:TaxInclusiveAmount currencyID="PEN">118</cbc:TaxInclusiveAmount>
+    <cbc:PayableAmount currencyID="PEN">118</cbc:PayableAmount>
+  </cac:LegalMonetaryTotal>
+  <cac:InvoiceLine>
+    <cbc:ID>1</cbc:ID>
+    <cbc:InvoicedQuantity unitCode="NIU" unitCodeListAgencyName="United Nations Economic Commission for Europe" unitCodeListID="UN/ECE rec 20">2</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="PEN">100</cbc:LineExtensionAmount>
+    <cac:PricingReference>
+      <cac:AlternativeConditionPrice>
+        <cbc:PriceAmount currencyID="PEN">100</cbc:PriceAmount>
+        <cbc:PriceTypeCode schemeAgencyName="PE:SUNAT" schemeName="Tipo de Precio" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo16">01</cbc:PriceTypeCode>
+      </cac:AlternativeConditionPrice>
+    </cac:PricingReference>
     <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="PEN">18</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+        <cbc:TaxableAmount currencyID="PEN">100</cbc:TaxableAmount>
         <cbc:TaxAmount currencyID="PEN">18</cbc:TaxAmount>
-        <cac:TaxSubtotal>
-            <cbc:TaxableAmount currencyID="PEN">100</cbc:TaxableAmount>
-            <cbc:TaxAmount currencyID="PEN">18</cbc:TaxAmount>
-            <cac:TaxCategory>
-                <cbc:ID schemeAgencyName="United Nations Economic Commission for Europe" schemeID="UN/ECE 5305" schemeName="Tax Category Identifier">S</cbc:ID>
-                <cbc:Percent>18</cbc:Percent>
-                <cbc:TaxExemptionReasonCode schemeAgencyName="PE:SUNAT" schemeName="Afectacion del IGV" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07">10</cbc:TaxExemptionReasonCode>
-                <cac:TaxScheme>
-                    <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="UN/ECE 5153" schemeName="Codigo de tributos">1000</cbc:ID>
-                    <cbc:Name>IGV</cbc:Name>
-                    <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
-                </cac:TaxScheme>
-            </cac:TaxCategory>
-        </cac:TaxSubtotal>
+        <cac:TaxCategory>
+          <cbc:ID schemeAgencyName="United Nations Economic Commission for Europe" schemeID="UN/ECE 5305" schemeName="Tax Category Identifier">S</cbc:ID>
+          <cbc:Percent>18</cbc:Percent>
+          <cbc:TaxExemptionReasonCode schemeAgencyName="PE:SUNAT" schemeName="Afectacion del IGV" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07">10</cbc:TaxExemptionReasonCode>
+          <cac:TaxScheme>
+            <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="UN/ECE 5153" schemeName="Codigo de tributos">1000</cbc:ID>
+            <cbc:Name>IGV</cbc:Name>
+            <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+          </cac:TaxScheme>
+        </cac:TaxCategory>
+      </cac:TaxSubtotal>
     </cac:TaxTotal>
-    <cac:LegalMonetaryTotal>
-        <cbc:LineExtensionAmount currencyID="PEN">100</cbc:LineExtensionAmount>
-        <cbc:TaxInclusiveAmount currencyID="PEN">118</cbc:TaxInclusiveAmount>
-        <cbc:PayableAmount currencyID="PEN">118</cbc:PayableAmount>
-    </cac:LegalMonetaryTotal>
-    <cac:InvoiceLine>
+    <cac:Item>
+      <cbc:Description>Producto A</cbc:Description>
+      <cac:SellersItemIdentification>
         <cbc:ID>1</cbc:ID>
-        <cbc:InvoicedQuantity unitCode="NIU" unitCodeListAgencyName="United Nations Economic Commission for Europe" unitCodeListID="UN/ECE rec 20">2</cbc:InvoicedQuantity>
-        <cbc:LineExtensionAmount currencyID="PEN">100</cbc:LineExtensionAmount>
-        <cac:PricingReference>
-            <cac:AlternativeConditionPrice>
-                <cbc:PriceAmount currencyID="PEN">100</cbc:PriceAmount>
-                <cbc:PriceTypeCode schemeAgencyName="PE:SUNAT" schemeName="Tipo de Precio" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo16">01</cbc:PriceTypeCode>
-            </cac:AlternativeConditionPrice>
-        </cac:PricingReference>
-        <cac:TaxTotal>
-            <cbc:TaxAmount currencyID="PEN">18</cbc:TaxAmount>
-            <cac:TaxSubtotal>
-                <cbc:TaxableAmount currencyID="PEN">100</cbc:TaxableAmount>
-                <cbc:TaxAmount currencyID="PEN">18</cbc:TaxAmount>
-                <cac:TaxCategory>
-                    <cbc:ID schemeAgencyName="United Nations Economic Commission for Europe" schemeID="UN/ECE 5305" schemeName="Tax Category Identifier">S</cbc:ID>
-                    <cbc:Percent>18</cbc:Percent>
-                    <cbc:TaxExemptionReasonCode schemeAgencyName="PE:SUNAT" schemeName="Afectacion del IGV" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07">10</cbc:TaxExemptionReasonCode>
-                    <cac:TaxScheme>
-                        <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="UN/ECE 5153" schemeName="Codigo de tributos">1000</cbc:ID>
-                        <cbc:Name>IGV</cbc:Name>
-                        <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
-                    </cac:TaxScheme>
-                </cac:TaxCategory>
-            </cac:TaxSubtotal>
-        </cac:TaxTotal>
-        <cac:Item>
-            <cbc:Description>Producto A</cbc:Description>
-            <cac:SellersItemIdentification>
-                <cbc:ID>1</cbc:ID>
-            </cac:SellersItemIdentification>
-            <cac:CommodityClassification>
-                <cbc:ItemClassificationCode schemeAgencyName="GS1 US" schemeID="UNSPSC" schemeName="Item Classification">10191509</cbc:ItemClassificationCode>
-            </cac:CommodityClassification>
-        </cac:Item>
-        <cac:Price>
-            <cbc:PriceAmount currencyID="PEN">50</cbc:PriceAmount>
-        </cac:Price>
-    </cac:InvoiceLine>
+      </cac:SellersItemIdentification>
+      <cac:CommodityClassification>
+        <cbc:ItemClassificationCode schemeAgencyName="GS1 US" schemeID="UNSPSC" schemeName="Item Classification">10191509</cbc:ItemClassificationCode>
+      </cac:CommodityClassification>
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="PEN">50</cbc:PriceAmount>
+    </cac:Price>
+  </cac:InvoiceLine>
 </Invoice>

@@ -10,38 +10,38 @@ import (
 // ============================================================================
 
 type BusinessDocument struct {
-	ID           string                 `json:"id"`
-	Type         string                 `json:"type"`
-	Series       string                 `json:"series"`
-	Number       string                 `json:"number"`
-	IssueDate    string                 `json:"issueDate"`
-	DueDate      string                 `json:"dueDate,omitempty"`
-	Currency     string                 `json:"currency"`
-	Issuer       Party                  `json:"issuer"`
-	Customer     Party                  `json:"customer"`
-	Items        []DocumentItem         `json:"items"`
-	Totals       DocumentTotals         `json:"totals"`
-	Taxes        []TaxTotal             `json:"taxes"`
-	Additional   map[string]interface{} `json:"additional,omitempty"`
-	Reference    *DocumentReference     `json:"reference,omitempty"`
+	ID         string                 `json:"id"`
+	Type       string                 `json:"type"`
+	Series     string                 `json:"series"`
+	Number     string                 `json:"number"`
+	IssueDate  string                 `json:"issueDate"`
+	DueDate    string                 `json:"dueDate,omitempty"`
+	Currency   string                 `json:"currency"`
+	Issuer     Party                  `json:"issuer"`
+	Customer   Party                  `json:"customer"`
+	Items      []DocumentItem         `json:"items"`
+	Totals     DocumentTotals         `json:"totals"`
+	Taxes      []TaxTotal             `json:"taxes"`
+	Additional map[string]interface{} `json:"additional,omitempty"`
+	Reference  *DocumentReference     `json:"reference,omitempty"`
 }
 
 type Party struct {
-	DocumentType string `json:"documentType"`
-	DocumentID   string `json:"documentId"`
-	Name         string `json:"name"`
-	TradeName    string `json:"tradeName,omitempty"`
+	DocumentType string  `json:"documentType"`
+	DocumentID   string  `json:"documentId"`
+	Name         string  `json:"name"`
+	TradeName    string  `json:"tradeName,omitempty"`
 	Address      Address `json:"address"`
 }
 
 type Address struct {
-	Street      string `json:"street"`
-	City        string `json:"city"`
-	District    string `json:"district"`
-	Province    string `json:"province"`
-	Department  string `json:"department"`
-	Country     string `json:"country"`
-	PostalCode  string `json:"postalCode,omitempty"`
+	Street     string `json:"street"`
+	City       string `json:"city"`
+	District   string `json:"district"`
+	Province   string `json:"province"`
+	Department string `json:"department"`
+	Country    string `json:"country"`
+	PostalCode string `json:"postalCode,omitempty"`
 }
 
 type DocumentItem struct {
@@ -55,9 +55,9 @@ type DocumentItem struct {
 }
 
 type DocumentTotals struct {
-	SubTotal     float64 `json:"subTotal"`
-	TotalTaxes   float64 `json:"totalTaxes"`
-	TotalAmount  float64 `json:"totalAmount"`
+	SubTotal      float64 `json:"subTotal"`
+	TotalTaxes    float64 `json:"totalTaxes"`
+	TotalAmount   float64 `json:"totalAmount"`
 	PayableAmount float64 `json:"payableAmount"`
 }
 
@@ -82,85 +82,92 @@ type DocumentReference struct {
 	Reason       string `json:"reason"`
 }
 
-// Estructuras UBL 2.1 XML
+// ============================================================================
+// ESTRUCTURAS UBL 2.1 XML - CORREGIDAS
+// ============================================================================
+
 type UBLInvoice struct {
-	XMLName                xml.Name               `xml:"Invoice"`
-	Xmlns                  string                 `xml:"xmlns,attr"`
-	UBLExtensions          *UBLExtensions         `xml:"ext:UBLExtensions"`
-	UBLVersionID           string                 `xml:"cbc:UBLVersionID"`
-	CustomizationID        UBLIDWithScheme        `xml:"cbc:CustomizationID"`
-	ProfileID              UBLIDWithScheme        `xml:"cbc:ProfileID"`
-	ID                     string                 `xml:"cbc:ID"`
-	IssueDate              string                 `xml:"cbc:IssueDate"`
-	IssueTime              string                 `xml:"cbc:IssueTime,omitempty"`
-	DueDate                string                 `xml:"cbc:DueDate,omitempty"`
-	InvoiceTypeCode        UBLTypeCode            `xml:"cbc:InvoiceTypeCode"`
-	DocumentCurrencyCode   UBLIDWithScheme        `xml:"cbc:DocumentCurrencyCode"`
-	LineCountNumeric       int                    `xml:"cbc:LineCountNumeric"`
-	Note                   string                 `xml:"cbc:Note,omitempty"`
-	Signature              *UBLSignature          `xml:"cac:Signature"`
+	XMLName                 xml.Name              `xml:"Invoice"`
+	Xmlns                   string                `xml:"xmlns,attr"`
+	XmlnsCac                string                `xml:"xmlns:cac,attr"`
+	XmlnsCbc                string                `xml:"xmlns:cbc,attr"`
+	XmlnsDs                 string                `xml:"xmlns:ds,attr"`
+	XmlnsExt                string                `xml:"xmlns:ext,attr"`
+	UBLExtensions           *UBLExtensions        `xml:"ext:UBLExtensions,omitempty"`
+	UBLVersionID            string                `xml:"cbc:UBLVersionID"`
+	CustomizationID         UBLIDWithScheme       `xml:"cbc:CustomizationID"`
+	ProfileID               UBLIDWithScheme       `xml:"cbc:ProfileID"`
+	ID                      string                `xml:"cbc:ID"`
+	IssueDate               string                `xml:"cbc:IssueDate"`
+	IssueTime               string                `xml:"cbc:IssueTime,omitempty"`
+	DueDate                 string                `xml:"cbc:DueDate,omitempty"`
+	InvoiceTypeCode         UBLTypeCode           `xml:"cbc:InvoiceTypeCode"`
+	DocumentCurrencyCode    UBLIDWithScheme       `xml:"cbc:DocumentCurrencyCode"`
+	LineCountNumeric        int                   `xml:"cbc:LineCountNumeric"`
+	Note                    string                `xml:"cbc:Note,omitempty"`
+	Signature               *UBLSignature         `xml:"cac:Signature,omitempty"`
 	AccountingSupplierParty UBLParty              `xml:"cac:AccountingSupplierParty"`
 	AccountingCustomerParty UBLParty              `xml:"cac:AccountingCustomerParty"`
-	PaymentTerms           []UBLPaymentTerms      `xml:"cac:PaymentTerms,omitempty"`
-	TaxTotal               []UBLTaxTotal          `xml:"cac:TaxTotal"`
-	LegalMonetaryTotal     UBLLegalMonetaryTotal  `xml:"cac:LegalMonetaryTotal"`
-	InvoiceLines           []UBLInvoiceLine       `xml:"cac:InvoiceLine"`
+	PaymentTerms            []UBLPaymentTerms     `xml:"cac:PaymentTerms,omitempty"`
+	TaxTotal                []UBLTaxTotal         `xml:"cac:TaxTotal"`
+	LegalMonetaryTotal      UBLLegalMonetaryTotal `xml:"cac:LegalMonetaryTotal"`
+	InvoiceLines            []UBLInvoiceLine      `xml:"cac:InvoiceLine"`
 }
 
 type UBLCreditNote struct {
-	XMLName                xml.Name               `xml:"CreditNote"`
-	Xmlns                  string                 `xml:"xmlns,attr"`
-	XmlnsCac               string                 `xml:"xmlns:cac,attr"`
-	XmlnsCbc               string                 `xml:"xmlns:cbc,attr"`
-	XmlnsDs                string                 `xml:"xmlns:ds,attr"`
-	XmlnsExt               string                 `xml:"xmlns:ext,attr"`
-	UBLExtensions          *UBLExtensions         `xml:"ext:UBLExtensions,omitempty"`
-	UBLVersionID           string                 `xml:"cbc:UBLVersionID"`
-	CustomizationID        UBLIDWithScheme        `xml:"cbc:CustomizationID"`
-	ProfileID              UBLIDWithScheme        `xml:"cbc:ProfileID"`
-	ID                     string                 `xml:"cbc:ID"`
-	IssueDate              string                 `xml:"cbc:IssueDate"`
-	IssueTime              string                 `xml:"cbc:IssueTime,omitempty"`
-	CreditNoteTypeCode     UBLTypeCode            `xml:"cbc:CreditNoteTypeCode"`
-	DocumentCurrencyCode   UBLIDWithScheme        `xml:"cbc:DocumentCurrencyCode"`
-	LineCountNumeric       int                    `xml:"cbc:LineCountNumeric"`
-	DiscrepancyResponse    []UBLDiscrepancyResponse `xml:"cac:DiscrepancyResponse"`
-	BillingReference       []UBLBillingReference  `xml:"cac:BillingReference"`
-	Signature              *UBLSignature          `xml:"cac:Signature,omitempty"`
-	AccountingSupplierParty UBLParty              `xml:"cac:AccountingSupplierParty"`
-	AccountingCustomerParty UBLParty              `xml:"cac:AccountingCustomerParty"`
-	PaymentTerms           []UBLPaymentTerms      `xml:"cac:PaymentTerms,omitempty"`
-	TaxTotal               []UBLTaxTotal          `xml:"cac:TaxTotal"`
-	LegalMonetaryTotal     UBLLegalMonetaryTotal  `xml:"cac:LegalMonetaryTotal"`
-	CreditNoteLines        []UBLCreditNoteLine    `xml:"cac:CreditNoteLine"`
+	XMLName                 xml.Name                 `xml:"CreditNote"`
+	Xmlns                   string                   `xml:"xmlns,attr"`
+	XmlnsCac                string                   `xml:"xmlns:cac,attr"`
+	XmlnsCbc                string                   `xml:"xmlns:cbc,attr"`
+	XmlnsDs                 string                   `xml:"xmlns:ds,attr"`
+	XmlnsExt                string                   `xml:"xmlns:ext,attr"`
+	UBLExtensions           *UBLExtensions           `xml:"ext:UBLExtensions,omitempty"`
+	UBLVersionID            string                   `xml:"cbc:UBLVersionID"`
+	CustomizationID         UBLIDWithScheme          `xml:"cbc:CustomizationID"`
+	ProfileID               UBLIDWithScheme          `xml:"cbc:ProfileID"`
+	ID                      string                   `xml:"cbc:ID"`
+	IssueDate               string                   `xml:"cbc:IssueDate"`
+	IssueTime               string                   `xml:"cbc:IssueTime,omitempty"`
+	CreditNoteTypeCode      UBLTypeCode              `xml:"cbc:CreditNoteTypeCode"`
+	DocumentCurrencyCode    UBLIDWithScheme          `xml:"cbc:DocumentCurrencyCode"`
+	LineCountNumeric        int                      `xml:"cbc:LineCountNumeric"`
+	DiscrepancyResponse     []UBLDiscrepancyResponse `xml:"cac:DiscrepancyResponse"`
+	BillingReference        []UBLBillingReference    `xml:"cac:BillingReference"`
+	Signature               *UBLSignature            `xml:"cac:Signature,omitempty"`
+	AccountingSupplierParty UBLParty                 `xml:"cac:AccountingSupplierParty"`
+	AccountingCustomerParty UBLParty                 `xml:"cac:AccountingCustomerParty"`
+	PaymentTerms            []UBLPaymentTerms        `xml:"cac:PaymentTerms,omitempty"`
+	TaxTotal                []UBLTaxTotal            `xml:"cac:TaxTotal"`
+	LegalMonetaryTotal      UBLLegalMonetaryTotal    `xml:"cac:LegalMonetaryTotal"`
+	CreditNoteLines         []UBLCreditNoteLine      `xml:"cac:CreditNoteLine"`
 }
 
 type UBLDebitNote struct {
-	XMLName                xml.Name               `xml:"DebitNote"`
-	Xmlns                  string                 `xml:"xmlns,attr"`
-	XmlnsCac               string                 `xml:"xmlns:cac,attr"`
-	XmlnsCbc               string                 `xml:"xmlns:cbc,attr"`
-	XmlnsDs                string                 `xml:"xmlns:ds,attr"`
-	XmlnsExt               string                 `xml:"xmlns:ext,attr"`
-	UBLExtensions          *UBLExtensions         `xml:"ext:UBLExtensions,omitempty"`
-	UBLVersionID           string                 `xml:"cbc:UBLVersionID"`
-	CustomizationID        UBLIDWithScheme        `xml:"cbc:CustomizationID"`
-	ProfileID              UBLIDWithScheme        `xml:"cbc:ProfileID"`
-	ID                     string                 `xml:"cbc:ID"`
-	IssueDate              string                 `xml:"cbc:IssueDate"`
-	IssueTime              string                 `xml:"cbc:IssueTime,omitempty"`
-	DebitNoteTypeCode      UBLTypeCode            `xml:"cbc:DebitNoteTypeCode"`
-	DocumentCurrencyCode   UBLIDWithScheme        `xml:"cbc:DocumentCurrencyCode"`
-	LineCountNumeric       int                    `xml:"cbc:LineCountNumeric"`
-	DiscrepancyResponse    []UBLDiscrepancyResponse `xml:"cac:DiscrepancyResponse"`
-	BillingReference       []UBLBillingReference  `xml:"cac:BillingReference"`
-	Signature              *UBLSignature          `xml:"cac:Signature,omitempty"`
-	AccountingSupplierParty UBLParty              `xml:"cac:AccountingSupplierParty"`
-	AccountingCustomerParty UBLParty              `xml:"cac:AccountingCustomerParty"`
-	PaymentTerms           []UBLPaymentTerms      `xml:"cac:PaymentTerms,omitempty"`
-	TaxTotal               []UBLTaxTotal          `xml:"cac:TaxTotal"`
-	LegalMonetaryTotal     UBLLegalMonetaryTotal  `xml:"cac:LegalMonetaryTotal"`
-	DebitNoteLines         []UBLDebitNoteLine     `xml:"cac:DebitNoteLine"`
+	XMLName                 xml.Name                 `xml:"DebitNote"`
+	Xmlns                   string                   `xml:"xmlns,attr"`
+	XmlnsCac                string                   `xml:"xmlns:cac,attr"`
+	XmlnsCbc                string                   `xml:"xmlns:cbc,attr"`
+	XmlnsDs                 string                   `xml:"xmlns:ds,attr"`
+	XmlnsExt                string                   `xml:"xmlns:ext,attr"`
+	UBLExtensions           *UBLExtensions           `xml:"ext:UBLExtensions,omitempty"`
+	UBLVersionID            string                   `xml:"cbc:UBLVersionID"`
+	CustomizationID         UBLIDWithScheme          `xml:"cbc:CustomizationID"`
+	ProfileID               UBLIDWithScheme          `xml:"cbc:ProfileID"`
+	ID                      string                   `xml:"cbc:ID"`
+	IssueDate               string                   `xml:"cbc:IssueDate"`
+	IssueTime               string                   `xml:"cbc:IssueTime,omitempty"`
+	DebitNoteTypeCode       UBLTypeCode              `xml:"cbc:DebitNoteTypeCode"`
+	DocumentCurrencyCode    UBLIDWithScheme          `xml:"cbc:DocumentCurrencyCode"`
+	LineCountNumeric        int                      `xml:"cbc:LineCountNumeric"`
+	DiscrepancyResponse     []UBLDiscrepancyResponse `xml:"cac:DiscrepancyResponse"`
+	BillingReference        []UBLBillingReference    `xml:"cac:BillingReference"`
+	Signature               *UBLSignature            `xml:"cac:Signature,omitempty"`
+	AccountingSupplierParty UBLParty                 `xml:"cac:AccountingSupplierParty"`
+	AccountingCustomerParty UBLParty                 `xml:"cac:AccountingCustomerParty"`
+	PaymentTerms            []UBLPaymentTerms        `xml:"cac:PaymentTerms,omitempty"`
+	TaxTotal                []UBLTaxTotal            `xml:"cac:TaxTotal"`
+	LegalMonetaryTotal      UBLLegalMonetaryTotal    `xml:"cac:LegalMonetaryTotal"`
+	DebitNoteLines          []UBLDebitNoteLine       `xml:"cac:DebitNoteLine"`
 }
 
 type UBLExtensions struct {
@@ -176,8 +183,8 @@ type ExtensionContent struct {
 }
 
 type UBLSignature struct {
-	ID                    string                `xml:"cbc:ID"`
-	SignatoryParty        UBLSignatoryParty     `xml:"cac:SignatoryParty"`
+	ID                         string                        `xml:"cbc:ID"`
+	SignatoryParty             UBLSignatoryParty             `xml:"cac:SignatoryParty"`
 	DigitalSignatureAttachment UBLDigitalSignatureAttachment `xml:"cac:DigitalSignatureAttachment"`
 }
 
@@ -224,13 +231,13 @@ type UBLPartyName struct {
 }
 
 type UBLRegistrationAddress struct {
-	ID                 UBLIDWithScheme `xml:"cbc:ID,omitempty"`
-	AddressTypeCode    UBLIDWithScheme `xml:"cbc:AddressTypeCode,omitempty"`
-	CityName           string          `xml:"cbc:CityName"`
-	CountrySubentity   string          `xml:"cbc:CountrySubentity"`
-	District           string          `xml:"cbc:District"`
-	AddressLine        UBLAddressLine  `xml:"cac:AddressLine"`
-	Country            UBLCountry      `xml:"cac:Country"`
+	ID               UBLIDWithScheme `xml:"cbc:ID,omitempty"`
+	AddressTypeCode  UBLIDWithScheme `xml:"cbc:AddressTypeCode,omitempty"`
+	CityName         string          `xml:"cbc:CityName"`
+	CountrySubentity string          `xml:"cbc:CountrySubentity"`
+	District         string          `xml:"cbc:District"`
+	AddressLine      UBLAddressLine  `xml:"cac:AddressLine"`
+	Country          UBLCountry      `xml:"cac:Country"`
 }
 
 type UBLAddressLine struct {
@@ -248,14 +255,14 @@ type UBLPartyTaxScheme struct {
 }
 
 type UBLTaxScheme struct {
-	ID           UBLIDWithScheme `xml:"cbc:ID"`
-	Name         string          `xml:"cbc:Name,omitempty"`
-	TaxTypeCode  string          `xml:"cbc:TaxTypeCode,omitempty"`
+	ID          UBLIDWithScheme `xml:"cbc:ID"`
+	Name        string          `xml:"cbc:Name,omitempty"`
+	TaxTypeCode string          `xml:"cbc:TaxTypeCode,omitempty"`
 }
 
 type UBLPartyLegalEntity struct {
-	RegistrationName     string                `xml:"cbc:RegistrationName"`
-	RegistrationAddress  UBLRegistrationAddress `xml:"cac:RegistrationAddress"`
+	RegistrationName    string                 `xml:"cbc:RegistrationName"`
+	RegistrationAddress UBLRegistrationAddress `xml:"cac:RegistrationAddress"`
 }
 
 type UBLContact struct {
@@ -263,8 +270,8 @@ type UBLContact struct {
 }
 
 type UBLTaxTotal struct {
-	TaxAmount     UBLAmountWithCurrency `xml:"cbc:TaxAmount"`
-	TaxSubtotals  []UBLTaxSubtotal      `xml:"cac:TaxSubtotal"`
+	TaxAmount    UBLAmountWithCurrency `xml:"cbc:TaxAmount"`
+	TaxSubtotals []UBLTaxSubtotal      `xml:"cac:TaxSubtotal"`
 }
 
 type UBLAmountWithCurrency struct {
@@ -279,10 +286,10 @@ type UBLTaxSubtotal struct {
 }
 
 type UBLTaxCategory struct {
-	ID                    UBLIDWithScheme `xml:"cbc:ID"`
-	Percent               float64         `xml:"cbc:Percent,omitempty"`
+	ID                     UBLIDWithScheme `xml:"cbc:ID"`
+	Percent                float64         `xml:"cbc:Percent,omitempty"`
 	TaxExemptionReasonCode UBLIDWithScheme `xml:"cbc:TaxExemptionReasonCode,omitempty"`
-	TaxScheme             UBLTaxScheme    `xml:"cac:TaxScheme"`
+	TaxScheme              UBLTaxScheme    `xml:"cac:TaxScheme"`
 }
 
 type UBLLegalMonetaryTotal struct {
@@ -302,20 +309,30 @@ type UBLInvoiceLine struct {
 }
 
 type UBLCreditNoteLine struct {
-	ID                    string                `xml:"cbc:ID"`
-	CreditedQuantity      UBLQuantityWithUnit   `xml:"cbc:CreditedQuantity"`
-	LineExtensionAmount   UBLAmountWithCurrency `xml:"cbc:LineExtensionAmount"`
-	PricingReference      *UBLPricingReference  `xml:"cac:PricingReference,omitempty"`
-	TaxTotal              []UBLTaxTotal         `xml:"cac:TaxTotal"`
-	Item                  UBLItem               `xml:"cac:Item"`
-	Price                 UBLPrice              `xml:"cac:Price"`
+	ID                  string                `xml:"cbc:ID"`
+	CreditedQuantity    UBLQuantityWithUnit   `xml:"cbc:CreditedQuantity"`
+	LineExtensionAmount UBLAmountWithCurrency `xml:"cbc:LineExtensionAmount"`
+	PricingReference    *UBLPricingReference  `xml:"cac:PricingReference,omitempty"`
+	TaxTotal            []UBLTaxTotal         `xml:"cac:TaxTotal"`
+	Item                UBLItem               `xml:"cac:Item"`
+	Price               UBLPrice              `xml:"cac:Price"`
+}
+
+type UBLDebitNoteLine struct {
+	ID                  string                `xml:"cbc:ID"`
+	DebitedQuantity     UBLQuantityWithUnit   `xml:"cbc:DebitedQuantity"`
+	LineExtensionAmount UBLAmountWithCurrency `xml:"cbc:LineExtensionAmount"`
+	PricingReference    *UBLPricingReference  `xml:"cac:PricingReference,omitempty"`
+	TaxTotal            []UBLTaxTotal         `xml:"cac:TaxTotal"`
+	Item                UBLItem               `xml:"cac:Item"`
+	Price               UBLPrice              `xml:"cac:Price"`
 }
 
 type UBLQuantityWithUnit struct {
-	UnitCode                    string `xml:"unitCode,attr"`
-	UnitCodeListAgencyName      string `xml:"unitCodeListAgencyName,attr,omitempty"`
-	UnitCodeListID              string `xml:"unitCodeListID,attr,omitempty"`
-	Value                       float64 `xml:",chardata"`
+	UnitCode               string  `xml:"unitCode,attr"`
+	UnitCodeListAgencyName string  `xml:"unitCodeListAgencyName,attr,omitempty"`
+	UnitCodeListID         string  `xml:"unitCodeListID,attr,omitempty"`
+	Value                  float64 `xml:",chardata"`
 }
 
 type UBLPricingReference struct {
@@ -332,9 +349,9 @@ type UBLPrice struct {
 }
 
 type UBLItem struct {
-	Description              string                    `xml:"cbc:Description"`
+	Description               string                        `xml:"cbc:Description"`
 	SellersItemIdentification *UBLSellersItemIdentification `xml:"cac:SellersItemIdentification,omitempty"`
-	CommodityClassification  *UBLCommodityClassification  `xml:"cac:CommodityClassification,omitempty"`
+	CommodityClassification   *UBLCommodityClassification   `xml:"cac:CommodityClassification,omitempty"`
 }
 
 type UBLSellersItemIdentification struct {
@@ -346,9 +363,9 @@ type UBLCommodityClassification struct {
 }
 
 type UBLDiscrepancyResponse struct {
-	ReferenceID string `xml:"cbc:ReferenceID"`
+	ReferenceID  string `xml:"cbc:ReferenceID"`
 	ResponseCode string `xml:"cbc:ResponseCode"`
-	Description string `xml:"cbc:Description"`
+	Description  string `xml:"cbc:Description"`
 }
 
 type UBLBillingReference struct {
@@ -356,8 +373,8 @@ type UBLBillingReference struct {
 }
 
 type UBLDocumentReference struct {
-	ID        string `xml:"cbc:ID"`
-	IssueDate string `xml:"cbc:IssueDate"`
+	ID               string `xml:"cbc:ID"`
+	IssueDate        string `xml:"cbc:IssueDate"`
 	DocumentTypeCode string `xml:"cbc:DocumentTypeCode"`
 }
 
@@ -371,29 +388,15 @@ type UBLTypeCode struct {
 }
 
 type UBLPaymentTerms struct {
-	ID              string `xml:"cbc:ID"`
-	PaymentMeansID  string `xml:"cbc:PaymentMeansID"`
-}
-
-type UBLDelivery struct {
-	DeliveryDate string `xml:"cbc:DeliveryDate"`
-}
-
-type UBLDebitNoteLine struct {
-	ID                    string                `xml:"cbc:ID"`
-	DebitedQuantity       UBLQuantityWithUnit   `xml:"cbc:DebitedQuantity"`
-	LineExtensionAmount   UBLAmountWithCurrency `xml:"cbc:LineExtensionAmount"`
-	PricingReference      *UBLPricingReference  `xml:"cac:PricingReference,omitempty"`
-	TaxTotal              []UBLTaxTotal         `xml:"cac:TaxTotal"`
-	Item                  UBLItem               `xml:"cac:Item"`
-	Price                 UBLPrice              `xml:"cac:Price"`
+	ID             string `xml:"cbc:ID"`
+	PaymentMeansID string `xml:"cbc:PaymentMeansID"`
 }
 
 // Estructura para la firma digital
 type XMLSignature struct {
-	SignedInfo      SignedInfo      `xml:"ds:SignedInfo"`
-	SignatureValue  SignatureValue  `xml:"ds:SignatureValue"`
-	KeyInfo         KeyInfo         `xml:"ds:KeyInfo"`
+	SignedInfo     SignedInfo     `xml:"ds:SignedInfo"`
+	SignatureValue SignatureValue `xml:"ds:SignatureValue"`
+	KeyInfo        KeyInfo        `xml:"ds:KeyInfo"`
 }
 
 type SignedInfo struct {
@@ -446,18 +449,18 @@ type X509Data struct {
 // ============================================================================
 
 type APIResponse struct {
-	Status        string                 `json:"status"`
-	CorrelationID string                 `json:"correlationId"`
-	DocumentID    string                 `json:"documentId,omitempty"`
-	XMLPath       string                 `json:"xmlPath,omitempty"`
-	XMLHash       string                 `json:"xmlHash,omitempty"`
-	ProcessedAt   time.Time              `json:"processedAt"`
-	Duration      int64                  `json:"duration,omitempty"`
-	ErrorCode     string                 `json:"errorCode,omitempty"`
-	ErrorMessage  string                 `json:"errorMessage,omitempty"`
-	ValidationErrors []ValidationError   `json:"validationErrors,omitempty"`
-	Data          map[string]interface{} `json:"data,omitempty"`
-	Message       string                 `json:"message,omitempty"`
+	Status           string                 `json:"status"`
+	CorrelationID    string                 `json:"correlationId"`
+	DocumentID       string                 `json:"documentId,omitempty"`
+	XMLPath          string                 `json:"xmlPath,omitempty"`
+	XMLHash          string                 `json:"xmlHash,omitempty"`
+	ProcessedAt      time.Time              `json:"processedAt"`
+	Duration         int64                  `json:"duration,omitempty"`
+	ErrorCode        string                 `json:"errorCode,omitempty"`
+	ErrorMessage     string                 `json:"errorMessage,omitempty"`
+	ValidationErrors []ValidationError      `json:"validationErrors,omitempty"`
+	Data             map[string]interface{} `json:"data,omitempty"`
+	Message          string                 `json:"message,omitempty"`
 }
 
 type ValidationError struct {
@@ -480,4 +483,4 @@ type OperationLog struct {
 	Error         string    `json:"error,omitempty"`
 	ErrorCode     string    `json:"errorCode,omitempty"`
 	StackTrace    string    `json:"stackTrace,omitempty"`
-} 
+}

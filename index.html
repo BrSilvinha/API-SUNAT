@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Facturación Electrónica SUNAT - Tester</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container-fluid py-4">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-primary text-white">
+                    <div class="card-body">
+                        <h1 class="card-title mb-0">
+                            <i class="bi bi-receipt"></i> API Facturación Electrónica SUNAT
+                        </h1>
+                        <p class="card-text mb-0">Generador de XML UBL 2.1 con Firma Digital</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status de la API -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="bi bi-activity"></i> Estado de la API
+                        </h5>
+                        <div class="d-flex gap-3">
+                            <button class="btn btn-outline-primary" onclick="checkHealth()">
+                                <i class="bi bi-heart-pulse"></i> Verificar Salud
+                            </button>
+                            <button class="btn btn-outline-info" onclick="pingAPI()">
+                                <i class="bi bi-wifi"></i> Ping
+                            </button>
+                        </div>
+                        <div id="apiStatus" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Panel de Control -->
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-gear"></i> Panel de Control
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Tipo de Comprobante -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Tipo de Comprobante</label>
+                            <select class="form-select" id="documentType">
+                                <option value="01">01 - Factura</option>
+                                <option value="03">03 - Boleta</option>
+                                <option value="07">07 - Nota de Crédito</option>
+                                <option value="08">08 - Nota de Débito</option>
+                            </select>
+                        </div>
+
+                        <!-- Plantillas Rápidas -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Plantillas Rápidas</label>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary btn-sm" onclick="loadTemplate('factura')">
+                                    <i class="bi bi-file-earmark-text"></i> Factura Demo
+                                </button>
+                                <button class="btn btn-outline-primary btn-sm" onclick="loadTemplate('boleta')">
+                                    <i class="bi bi-receipt"></i> Boleta Demo
+                                </button>
+                                <button class="btn btn-outline-primary btn-sm" onclick="loadTemplate('notaCredito')">
+                                    <i class="bi bi-file-minus"></i> Nota Crédito Demo
+                                </button>
+                                <button class="btn btn-outline-primary btn-sm" onclick="loadTemplate('notaDebito')">
+                                    <i class="bi bi-file-plus"></i> Nota Débito Demo
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Acciones -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Acciones</label>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-warning" onclick="validateDocument()">
+                                    <i class="bi bi-check-circle"></i> Validar Documento
+                                </button>
+                                <button class="btn btn-success" onclick="convertDocument()">
+                                    <i class="bi bi-file-earmark-arrow-down"></i> Generar XML Firmado
+                                </button>
+                                <button class="btn btn-info" onclick="clearAll()">
+                                    <i class="bi bi-arrow-clockwise"></i> Limpiar Todo
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- RUCs Válidos para Pruebas -->
+                        <div class="alert alert-info">
+                            <h6 class="alert-heading">RUCs Válidos para Pruebas:</h6>
+                            <ul class="mb-0 small">
+                                <li><code>20123456786</code></li>
+                                <li><code>20123456794</code></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Archivos Generados -->
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-files"></i> Archivos Generados
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="generatedFiles">
+                            <p class="text-muted">No hay archivos generados aún.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Editor JSON -->
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-code-square"></i> Editor JSON del Comprobante
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <textarea class="form-control font-monospace" id="jsonEditor" rows="20" placeholder="Carga una plantilla o escribe tu JSON aquí..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Resultados -->
+                <div class="card">
+                    <div class="card-header bg-secondary text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-terminal"></i> Resultados de la API
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="apiResults">
+                            <p class="text-muted">Los resultados aparecerán aquí...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para mostrar XML -->
+    <div class="modal fade" id="xmlModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">XML Generado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <pre id="xmlContent" class="bg-light p-3 border rounded"></pre>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="downloadXML()">
+                        <i class="bi bi-download"></i> Descargar XML
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_BASE = 'http://localhost:8080';
+        let currentXmlFile = '';
+
+        // Plantillas de documentos
+        const templates = {
+            factura: {
+                "document": {
+                    "type": "01",
+                    "series": "F003",
+                    "number": "123456",
+                    "issueDate": "2024-06-07",
+                    "currency": "PEN",
+                    "issuer": {
+                        "documentType": "6",
+                        "documentId": "20123456786",
+                        "name": "RODRIGO S.A.C",
+                        "address": {
+                            "street": "Av. Principal 123",
+                            "city": "LIMA",
+                            "district": "MIRAFLORES",
+                            "province": "LIMA",
+                            "department": "LIMA",
+                            "country": "PE"
+                        }
+                    },
+                    "customer": {
+                        "documentType": "1",
+                        "documentId": "12345678",
+                        "name": "JUAN PEREZ",
+                        "address": {
+                            "street": "Calle Secundaria 456",
+                            "city": "LIMA",
+                            "district": "SURCO",
+                            "province": "LIMA",
+                            "department": "LIMA",
+                            "country": "PE"
+                        }
+                    },
+                    "items": [
+                        {
+                            "id": "1",
+                            "description": "Producto A",
+                            "quantity": 2,
+                            "unitCode": "NIU",
+                            "unitPrice": 50.0,
+                            "lineTotal": 100.0,
+                            "taxes": [
+                                {
+                                    "taxType": "1000",
+                                    "taxAmount": 18.0,
+                                    "taxRate": 18.0,
+                                    "taxBase": 100.0
+                                }
+                            ]
+                        }
+                    ],
+                    "totals": {
+                        "subTotal": 100.0,
+                        "totalTaxes": 18.0,
+                        "totalAmount": 118.0,
+                        "payableAmount": 118.0
+                    },
+                    "taxes": [
+                        {
+                            "taxType": "1000",
+                            "taxAmount": 18.0,
+                            "taxRate": 18.0,
+                            "taxBase": 100.0
+                        }
+                    ]
+                },
+                "certificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZuakNDQklhZ0F3SUJBZ0lJQTZha1lUSUVzcnd3RFFZSktvWklodmNOQVFFTEJRQXdSakVrTUNJR0ExVUUKQXd3YlRHeGhiV0V1Y0dVZ1UwaEJNalUySUZOMFlXNWtZWEprSUVOQk1SRXdEd1lEVlFRS0RBaE1URUZOUVM1UQpSVEVMTUFrR0ExVUVCaE1DVUVVd0hoY05Nak13TWpJME1qRXhOekV4V2hjTk1qWXdNakl6TWpFeE56QXdXakNDCkFUZ3hRakJBQmdOVkJBa01PVU5CVEM0Z1VFRlNVVlZGSUVsT1JGVlRWRkpKUVV3Z1RGUXVJRFFnVFZvdUlFVWcKV2k1SkxpQlFRVkpSVlVVZ1NVNUVWVk5VVWtsQlRERXVNQ3dHQ1NxR1NJYjNEUUVKQVJZZlkyRnliRzl6TG1GeQpjbWx2YkdGQVozSjFjRzlqYUdsaGNIQmxMbU52YlRFc01Db0dBMVVFQXd3alUwOUdWRmRCVWtVZ1JFVWdSa0ZEClZGVlNRVU5KVDA0Z1JVeEZRMVJTVDA1SlEwRXhMREFxQmdOVkJBc01JMFpCUTFSVlVrRWdSVXhGUTFSU1QwNUoKUTBFZ1VsVkRJREl3TVRBek1USTVNRFl4TVNFd0h3WURWUVFMREJoV1lXeHBaR0ZrYnlCd2IzSWdUR3hoYldFdQpjR1VnUlZJeElUQWZCZ05WQkFvTUdFTlBUVVZTUTBsQlRDQk1RVlpCUjA1QklGTXVRUzVETGpFVE1CRUdBMVVFCkJ3d0tURUZOUWtGWlJWRlZSVEVMTUFrR0ExVUVCaE1DVUVVd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUIKRHdBd2dnRUtBb0lCQVFDZU5uVUYxdWJFSFNZbTNmVkU3RzFLaEgwMW8wcitQSlBXRy90MCtYTEFxbXF0Z25yTwpwa0JwZW11MzcxMWpDSS8vL2IxL3E2bHZwZVRyY0pWUjZ3QnFJMVBLR214TXV4STgvV3QyVFoyMTNEcXJvcVpuCkRjWXlJV1BPekpDRXBhdTlYVnc0NEZiOUNOcXpIaXoweW9MankrcHUyWmtUT2oyK2RsaFdHa2xqT2p4K2M3L3YKQ0JwWkw0dVBMVnJaaHJUaEZJaDhmSGc4SzZIYVYwQ0EzQmtra1ZzaHFoQ1oyaDhtNy8zSzg0M0VXbVRtUWM3TwpyTmttSGt1VFd5amVTYVgzc2VxNHpMbE9rblMyTVg2N2Z5ZlA5VkFDa0tNNTF4SjY0enRkb0RTcDRQY3hZcG5ZCnVkSE1xUmE3S0dHc2NhMnNMOUZxTWFpc1p6RWZlaUIzQ2piakFnTUJBQUdqZ2dHYU1JSUJsakFNQmdOVkhSTUIKQWY4RUFqQUFNQjhHQTFVZEl3UVlNQmFBRkYySVc2M3JaZnYrYUtMazJXODlWM0tpN3l1Wk1HY0dDQ3NHQVFVRgpCd0VCQkZzd1dUQTFCZ2dyQmdFRkJRY3dBb1lwYUhSMGNEb3ZMMk55ZEM1c2JHRnRZUzV3WlM5c2JHRnRZWEJsCmMzUmhibVJoY21SallTNWpaWEl3SUFZSUt3WUJCUVVITUFHR0ZHaDBkSEE2THk5dlkzTndMbXhzWVcxaExuQmwKTUNvR0ExVWRFUVFqTUNHQkgyTmhjbXh2Y3k1aGNuSnBiMnhoUUdkeWRYQnZZMmhwWVhCd1pTNWpiMjB3UmdZRApWUjBnQkQ4d1BUQTdCZzByQmdFRUFZT1hkd0FCQUFNQk1Db3dLQVlJS3dZQkJRVUhBZ0VXSEdoMGRIQnpPaTh2CmJHeGhiV0V1Y0dVdmNtVndiM05wZEc5eWVTOHdIUVlEVlIwbEJCWXdGQVlJS3dZQkJRVUhBd0lHQ0NzR0FRVUYKQndNRU1Eb0dBMVVkSHdRek1ERXdMNkF0b0N1R0tXaDBkSEE2THk5amNtd3ViR3hoYldFdWNHVXZiR3hoYldGdwpaWE4wWVc1a1lYSmtZMkV1WTNKc01CMEdBMVVkRGdRV0JCVHRjeUo2RGFwb0FtcXJXUWVNd1BNUUZGbks3REFPCkJnTlZIUThCQWY4RUJBTUNCc0F3RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUVMKzlkQVlGZldtM1VBemxrSzIKNTFZNms3aU9EbXc0NGluV0kxUUNFVzVYTURDVHJDQnRyeGRPZWdaSFYzT2lrc3hxUUt4SkhETVRaZVMwVlF4OQpFeXNYRGJDVDhXNitoOG9zeUsrM05zUS9SRTJiV0tYT1FDRHN2QngxZlpCdmt6eGlqa2l2ZGg1MzJMVEF1bVVDClZiS0UrTktXUEFzMllxaHZvb1VIemdxckNTRVVpRzU5dGQyb2J1NnJNckRmYlFrWmczQnRFUGF6QnN5bDFSTksKZm1XM2hldlpiYUFkcURZTzBRaFhBTEY1T3hpTmxlYnRLOUh2blhuZU83dUZlcm83NmZlS3hFRW9ndW95MDhDdQpPNnRjbVlidmtGVEZTTnorVE9GMk12TFJKMzFkOE5YV3NxbG93azVJTGdSV3dISVd5YUdPclowWlBKV2s0VU1jCnl4bz0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=",
+                "privateKey": "LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2QUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktZd2dnU2lBZ0VBQW9JQkFRQ2VOblVGMXViRUhTWW0KM2ZWRTdHMUtoSDAxbzByK1BKUFdHL3QwK1hMQXFtcXRnbnJPcGtCcGVtdTM3MTFqQ0kvLy9iMS9xNmx2cGVUcgpjSlZSNndCcUkxUEtHbXhNdXhJOC9XdDJUWjIxM0Rxcm9xWm5EY1l5SVdQT3pKQ0VwYXU5WFZ3NDRGYjlDTnF6CkhpejB5b0xqeStwdTJaa1RPajIrZGxoV0drbGpPangrYzcvdkNCcFpMNHVQTFZyWmhyVGhGSWg4ZkhnOEs2SGEKVjBDQTNCa2trVnNocWhDWjJoOG03LzNLODQzRVdtVG1RYzdPck5rbUhrdVRXeWplU2FYM3NlcTR6TGxPa25TMgpNWDY3ZnlmUDlWQUNrS001MXhKNjR6dGRvRFNwNFBjeFlwbll1ZEhNcVJhN0tHR3NjYTJzTDlGcU1haXNaekVmCmVpQjNDamJqQWdNQkFBRUNnZ0VBRG1iVjk0WnlFb1MyRmdXbHI1OTNRZzJXRHVMaXViVXVucEtFMTV5NVlHWmkKNHVaNkRWanBpM0IwWVJXWWw2STQ1c3c1NEJHZE85STF2ZzkzMkRGMGVUVG10SzFSRWNSWm9GUlA0RUNuekRKKwo0MlFoUFBKRHRMUFdEN0M1V3duRnAxZ3ZRK2Q2bzZWQnNJVUhySm9lbUxrcTN1cFBMOXZoQmt4a05YcEdiSklhCk02d1ZyVFBYK012Q0V0a2pxZUJUeHlrNFJGaStFVlJLUUhyUWlsNXpmWS9Jbk9jZG9rUk4wMWxGbFM1dW5aTnUKM2JYYTE3M0daRUR2SFJRVjYwczBXcGVGWkFuSHlPVWdOOURIbkZvVzQzcHhjbkppeVBzTUcvYzBHWUdiWVJGWgpEZXNUSXkvOG4yeDdZZ3RGcXEwQ0xFVHFpTWlpa05YUDlLZFdDN0dyTVFLQmdRRFF0ODhlRUQ4Y3gwV0Q3bzZkCnVXYkUvUjhsTEJxQzFqbTBDUHh1bldpZUgybTBBOVFpTmpvYjBDTGFvVEZhZmdOT0toTjNTZ2hoVVZ4dXh3N1cKUlA0bG9OY25HTGEvNVE2QXhwRW9qY2VlK1FQM0NPK3hDbmNQK1B2bFVJVDZEVnhiWkhudndMMmxLZ1BOZlZEYwpMdUFlbHQyVk1oQUZpZ1VZcDZ5cFMzcUVhUUtCZ1FEQ0RiR0ZCVnJ0YjZjNGw4VmhkdDF6eUJ2Tis5aGRQaUxBCm9IWHBNajBBbXZiSVdCUkdJTlBqMCtvMHg5VVAwSXRIbXg4Nk1xT3BUc0hOeHpuWGhrczNUN2pnNlE3UXhoKzAKZi85WEhmUFEzV2lFbTNVMVlsai9ONG1rUTVhLzRkR1MxYXYwbnZlZWw3TFRkOFljaXpNemtYWmoycnViQ0VhOQpxUGVzNk1ZSGF3S0JnRGdPeGtBcTJPaWYxTm5rZnNWNkFGSTBNZU5IL3k3WTN0S3QveTZ1ZEdUVHh3NGtZUnQzCk9SQXpUTWt2dGhPNStLVkx3OEtzVGFmbHRFL0Vnd1dscmlUcEdDQldFTzlsVkFuZVN5cDdPZnhHb1h2K0dIS1MKZnZ2NVFaNkxpOHVsUHdNRTc0TW5YMGczQ3FKc1lBVmpTYXF0bG9IMTJqdkNvQy9KQ1NUSE12YlJBb0dBVmw1ago0WEcxdTdJVE9sUUtyTXVMMndsNG5xQjE5Mkk5YzRDM21qZ2JBSmI0T2NsQ0ZNaHRwcHhlUkdtZ3dlNHUzNHNDClJoUGQxZkJRdi9icEhxME44eXRQZlFNZDdmd1FoblRsdis5NzRqMTVWSFFnb2NjSkYyYXZvMlhWeGNlTFVKQTcKZlovM1ZDWHVtTUpaY2NEZTVCZmRHcXB6RDVpS2E4VzFuc2JueE1zQ2dZQTlUTEp3NlhrUFZLbWlJRjI0Q2JSQQo4UzJhS1Y3TjVEMnZzaUE2MGV1VmxRaERtVXBkN0xCdVdmVjU2YXE1MG1QbUhPRi9uVW5xTE5ScWIwMTh6VWNPCjdqV3JSTkJWcHROWk02UzhPV05QWWtJcFBENXJPYjdnSUdSdWUvbE5ITGNXUk9JR3hVM3ErQlo0MEVjcDQ1UTUKSjl4SHFGdk5oV29ab1FMc09Gempndz09Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K"
+            },
+            notaDebito: {
+                "document": {
+                    "type": "08",
+                    "series": "ND001",
+                    "number": "123456",
+                    "issueDate": "2024-06-07",
+                    "currency": "PEN",
+                    "reference": {
+                        "documentType": "01",
+                        "documentId": "F003-123456",
+                        "issueDate": "2024-06-06",
+                        "reason": "Cargo adicional por intereses"
+                    },
+                    "issuer": {
+                        "documentType": "6",
+                        "documentId": "20123456786",
+                        "name": "RODRIGO S.A.C",
+                        "address": {
+                            "street": "Av. Principal 123",
+                            "city": "LIMA",
+                            "district": "MIRAFLORES",
+                            "province": "LIMA",
+                            "department": "LIMA",
+                            "country": "PE"
+                        }
+                    },
+                    "customer": {
+                        "documentType": "1",
+                        "documentId": "12345678",
+                        "name": "JUAN PEREZ",
+                        "address": {
+                            "street": "Calle Secundaria 456",
+                            "city": "LIMA",
+                            "district": "SURCO",
+                            "province": "LIMA",
+                            "department": "LIMA",
+                            "country": "PE"
+                        }
+                    },
+                    "items": [
+                        {
+                            "id": "1",
+                            "description": "Cargo por intereses",
+                            "quantity": 1,
+                            "unitCode": "NIU",
+                            "unitPrice": 20.0,
+                            "lineTotal": 20.0,
+                            "taxes": [
+                                {
+                                    "taxType": "1000",
+                                    "taxAmount": 3.6,
+                                    "taxRate": 18.0,
+                                    "taxBase": 20.0
+                                }
+                            ]
+                        }
+                    ],
+                    "totals": {
+                        "subTotal": 20.0,
+                        "totalTaxes": 3.6,
+                        "totalAmount": 23.6,
+                        "payableAmount": 23.6
+                    },
+                    "taxes": [
+                        {
+                            "taxType": "1000",
+                            "taxAmount": 3.6,
+                            "taxRate": 18.0,
+                            "taxBase": 20.0
+                        }
+                    ]
+                },
+                "certificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZuakNDQklhZ0F3SUJBZ0lJQTZha1lUSUVzcnd3RFFZSktvWklodmNOQVFFTEJRQXdSakVrTUNJR0ExVUUKQXd3YlRHeGhiV0V1Y0dVZ1UwaEJNalUySUZOMFlXNWtZWEprSUVOQk1SRXdEd1lEVlFRS0RBaE1URUZOUVM1UQpSVEVMTUFrR0ExVUVCaE1DVUVVd0hoY05Nak13TWpJME1qRXhOekV4V2hjTk1qWXdNakl6TWpFeE56QXdXakNDCkFUZ3hRakJBQmdOVkJBa01PVU5CVEM0Z1VFRlNVVlZGSUVsT1JGVlRWRkpKUVV3Z1RGUXVJRFFnVFZvdUlFVWcKV2k1SkxpQlFRVkpSVlVVZ1NVNUVWVk5VVWtsQlRERXVNQ3dHQ1NxR1NJYjNEUUVKQVJZZlkyRnliRzl6TG1GeQpjbWx2YkdGQVozSjFjRzlqYUdsaGNIQmxMbU52YlRFc01Db0dBMVVFQXd3alUwOUdWRmRCVWtVZ1JFVWdSa0ZEClZGVlNRVU5KVDA0Z1JVeEZRMVJTVDA1SlEwRXhMREFxQmdOVkJBc01JMFpCUTFSVlVrRWdSVXhGUTFSU1QwNUoKUTBFZ1VsVkRJREl3TVRBek1USTVNRFl4TVNFd0h3WURWUVFMREJoV1lXeHBaR0ZrYnlCd2IzSWdUR3hoYldFdQpjR1VnUlZJeElUQWZCZ05WQkFvTUdFTlBUVVZTUTBsQlRDQk1RVlpCUjA1QklGTXVRUzVETGpFVE1CRUdBMVVFCkJ3d0tURUZOUWtGWlJWRlZSVEVMTUFrR0ExVUVCaE1DVUVVd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUIKRHdBd2dnRUtBb0lCQVFDZU5uVUYxdWJFSFNZbTNmVkU3RzFLaEgwMW8wcitQSlBXRy90MCtYTEFxbXF0Z25yTwpwa0JwZW11MzcxMWpDSS8vL2IxL3E2bHZwZVRyY0pWUjZ3QnFJMVBLR214TXV4STgvV3QyVFoyMTNEcXJvcVpuCkRjWXlJV1BPekpDRXBhdTlYVnc0NEZiOUNOcXpIaXoweW9MankrcHUyWmtUT2oyK2RsaFdHa2xqT2p4K2M3L3YKQ0JwWkw0dVBMVnJaaHJUaEZJaDhmSGc4SzZIYVYwQ0EzQmtra1ZzaHFoQ1oyaDhtNy8zSzg0M0VXbVRtUWM3TwpyTmttSGt1VFd5amVTYVgzc2VxNHpMbE9rblMyTVg2N2Z5ZlA5VkFDa0tNNTF4SjY0enRkb0RTcDRQY3hZcG5ZCnVkSE1xUmE3S0dHc2NhMnNMOUZxTWFpc1p6RWZlaUIzQ2piakFnTUJBQUdqZ2dHYU1JSUJsakFNQmdOVkhSTUIKQWY4RUFqQUFNQjhHQTFVZEl3UVlNQmFBRkYySVc2M3JaZnYrYUtMazJXODlWM0tpN3l1Wk1HY0dDQ3NHQVFVRgpCd0VCQkZzd1dUQTFCZ2dyQmdFRkJRY3dBb1lwYUhSMGNEb3ZMMk55ZEM1c2JHRnRZUzV3WlM5c2JHRnRZWEJsCmMzUmhibVJoY21SallTNWpaWEl3SUFZSUt3WUJCUVVITUFHR0ZHaDBkSEE2THk5dlkzTndMbXhzWVcxaExuQmwKTUNvR0ExVWRFUVFqTUNHQkgyTmhjbXh2Y3k1aGNuSnBiMnhoUUdkeWRYQnZZMmhwWVhCd1pTNWpiMjB3UmdZRApWUjBnQkQ4d1BUQTdCZzByQmdFRUFZT1hkd0FCQUFNQk1Db3dLQVlJS3dZQkJRVUhBZ0VXSEdoMGRIQnpPaTh2CmJHeGhiV0V1Y0dVdmNtVndiM05wZEc5eWVTOHdIUVlEVlIwbEJCWXdGQVlJS3dZQkJRVUhBd0lHQ0NzR0FRVUYKQndNRU1Eb0dBMVVkSHdRek1ERXdMNkF0b0N1R0tXaDBkSEE2THk5amNtd3ViR3hoYldFdWNHVXZiR3hoYldGdApaWE4wWVc1a1lYSmtZMkV1WTNKc01CMEdBMVVkRGdRV0JCVHRjeUo2RGFwb0FtcXJXUWVNd1BNUUZGbks3REFPCkJnTlZIUThCQWY4RUJBTUNCc0F3RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUVMKzlkQVlGZldtM1VBemxrSzIKNTFZNms3aU9EbXc0NGluV0kxUUNFVzVYTURDVHJDQnRyeGRPZWdaSFYzT2lrc3hxUUt4SkhETVRaZVMwVlF4OQpFeXNYRGJDVDhXNitoOG9zeUsrM05zUS9SRTJiV0tYT1FDRHN2QngxZlpCdmt6eGlqa2l2ZGg1MzJMVEF1bVVDClZiS0UrTktXUEFzMllxaHZvb1VIemdxckNTRVVpRzU5dGQyb2J1NnJNckRmYlFrWmczQnRFUGF6QnN5bDFSTksKZm1XM2hldlpiYUFkcURZTzBRaFhBTEY1T3hpTmxlYnRLOUh2blhuZU83dUZlcm83NmZlS3hFRW9ndW95MDhDdQpPNnRjbVlidmtGVEZTTnorVE9GMk12TFJKMzFkOE5YV3NxbG93azVJTGdSV3dISVd5YUdPclowWlBKV2s0VU1jCnl4bz0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=",
+                "privateKey": "LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2QUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktZd2dnU2lBZ0VBQW9JQkFRQ2VOblVGMXViRUhTWW0KM2ZWRTdHMUtoSDAxbzByK1BKUFdHL3QwK1hMQXFtcXRnbnJPcGtCcGVtdTM3MTFqQ0kvLy9iMS9xNmx2cGVUcgpjSlZSNndCcUkxUEtHbXhNdXhJOC9XdDJUWjIxM0Rxcm9xWm5EY1l5SVdQT3pKQ0VwYXU5WFZ3NDRGYjlDTnF6CkhpejB5b0xqeStwdTJaa1RPajIrZGxoV0drbGpPangrYzcvdkNCcFpMNHVQTFZyWmhyVGhGSWg4ZkhnOEs2SGEKVjBDQTNCa2trVnNocWhDWjJoOG03LzNLODQzRVdtVG1RYzdPck5rbUhrdVRXeWplU2FYM3NlcTR6TGxPa25TMgpNWDY3ZnlmUDlWQUNrS001MXhKNjR6dGRvRFNwNFBjeFlwbll1ZEhNcVJhN0tHR3NjYTJzTDlGcU1haXNaekVmCmVpQjNDamJqQWdNQkFBRUNnZ0VBRG1iVjk0WnlFb1MyRmdXbHI1OTNRZzJXRHVMaXViVXVucEtFMTV5NVlHWmkKNHVaNkRWanBpM0IwWVJXWWw2STQ1c3c1NEJHZE85STF2ZzkzMkRGMGVUVG10SzFSRWNSWm9GUlA0RUNuekRKKwo0MlFoUFBKRHRMUFdEN0M1V3duRnAxZ3ZRK2Q2bzZWQnNJVUhySm9lbUxrcTN1cFBMOXZoQmt4a05YcEdiSklhCk02d1ZyVFBYK012Q0V0a2pxZUJUeHlrNFJGaStFVlJLUUhyUWlsNXpmWS9Jbk9jZG9rUk4wMWxGbFM1dW5aTnUKM2JYYTE3M0daRUR2SFJRVjYwczBXcGVGWkFuSHlPVWdOOURIbkZvVzQzcHhjbkppeVBzTUcvYzBHWUdiWVJGWgpEZXNUSXkvOG4yeDdZZ3RGcXEwQ0xFVHFpTWlpa05YUDlLZFdDN0dyTVFLQmdRRFF0ODhlRUQ4Y3gwV0Q3bzZkCnVXYkUvUjhsTEJxQzFqbTBDUHh1bldpZUgybTBBOVFpTmpvYjBDTGFvVEZhZmdOT0toTjNTZ2hoVVZ4dXh3N1cKUlA0bG9OY25HTGEvNVE2QXhwRW9qY2VlK1FQM0NPK3hDbmNQK1B2bFVJVDZEVnhiWkhudndMMmxLZ1BOZlZEYwpMdUFlbHQyVk1oQUZpZ1VZcDZ5cFMzcUVhUUtCZ1FEQ0RiR0ZCVnJ0YjZjNGw4VmhkdDF6eUJ2Tis5aGRQaUxBCm9IWHBNajBBbXZiSVdCUkdJTlBqMCtvMHg5VVAwSXRIbXg4Nk1xT3BUc0hOeHpuWGhrczNUN2pnNlE3UXhoKzAKZi85WEhmUFEzV2lFbTNVMVlsai9ONG1rUTVhLzRkR1MxYXYwbnZlZWw3TFRkOFljaXpNemtYWmoycnViQ0VhOQpxUGVzNk1ZSGF3S0JnRGdPeGtBcTJPaWYxTm5rZnNWNkFGSTBNZU5IL3k3WTN0S3QveTZ1ZEdUVHh3NGtZUnQzCk9SQXpUTWt2dGhPNStLVkx3OEtzVGFmbHRFL0Vnd1dscmlUcEdDQldFTzlsVkFuZVN5cDdPZnhHb1h2K0dIS1MKZnZ2NVFaNkxpOHVsUHdNRTc0TW5YMGczQ3FKc1lBVmpTYXF0bG9IMTJqdkNvQy9KQ1NUSE12YlJBb0dBVmw1ago0WEcxdTdJVE9sUUtyTXVMMndsNG5xQjE5Mkk5YzRDM21qZ2JBSmI0T2NsQ0ZNaHRwcHhlUkdtZ3dlNHUzNHNDClJoUGQxZkJRdi9icEhxME44eXRQZlFNZDdmd1FoblRsdis5NzRqMTVWSFFnb2NjSkYyYXZvMlhWeGNlTFVKQTcKZlovM1ZDWHVtTUpaY2NEZTVCZmRHcXB6RDVpS2E4VzFuc2JueE1zQ2dZQTlUTEp3NlhrUFZLbWlJRjI0Q2JSQQo4UzJhS1Y3TjVEMnZzaUE2MGV1VmxRaERtVXBkN0xCdVdmVjU2YXE1MG1QbUhPRi9uVW5xTE5ScWIwMTh6VWNPCjdqV3JSTkJWcHROWk02UzhPV05QWWtJcFBENXJPYjdnSUdSdWUvbE5ITGNXUk9JR3hVM3ErQlo0MEVjcDQ1UTUKSjl4SHFGdk5oV29ab1FMc09Gempndz09Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K"
+            }
+        };
+
+        // Funciones principales
+        async function checkHealth() {
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                showApiStatus('success', 'API funcionando correctamente', data);
+            } catch (error) {
+                showApiStatus('error', 'Error conectando con la API', { error: error.message });
+            }
+        }
+
+        async function pingAPI() {
+            try {
+                const response = await fetch(`${API_BASE}/ping`);
+                const data = await response.json();
+                showApiStatus('success', 'Ping exitoso', data);
+            } catch (error) {
+                showApiStatus('error', 'Error en ping', { error: error.message });
+            }
+        }
+
+        async function validateDocument() {
+            const jsonText = document.getElementById('jsonEditor').value.trim();
+            if (!jsonText) {
+                showApiResult('error', 'Error', 'Debe cargar un documento JSON');
+                return;
+            }
+
+            try {
+                const jsonData = JSON.parse(jsonText);
+                const documentData = jsonData.document || jsonData;
+
+                const response = await fetch(`${API_BASE}/api/v1/validate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(documentData)
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    showApiResult('success', 'Validación Exitosa', result);
+                } else {
+                    showApiResult('error', 'Errores de Validación', result);
+                }
+            } catch (error) {
+                showApiResult('error', 'Error', { error: error.message });
+            }
+        }
+
+        async function convertDocument() {
+            const jsonText = document.getElementById('jsonEditor').value.trim();
+            if (!jsonText) {
+                showApiResult('error', 'Error', 'Debe cargar un documento JSON');
+                return;
+            }
+
+            try {
+                const jsonData = JSON.parse(jsonText);
+                
+                showApiResult('info', 'Procesando...', 'Generando XML firmado...');
+
+                const response = await fetch(`${API_BASE}/api/v1/convert`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(jsonData)
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    showApiResult('success', 'XML Generado Exitosamente', result);
+                    updateGeneratedFiles(result);
+                } else {
+                    showApiResult('error', 'Error en Conversión', result);
+                }
+            } catch (error) {
+                showApiResult('error', 'Error', { error: error.message });
+            }
+        }
+
+        function loadTemplate(templateName) {
+            const template = templates[templateName];
+            if (template) {
+                document.getElementById('jsonEditor').value = JSON.stringify(template, null, 2);
+                showApiResult('info', 'Plantilla Cargada', `Plantilla ${templateName} cargada correctamente`);
+            }
+        }
+
+        function clearAll() {
+            document.getElementById('jsonEditor').value = '';
+            document.getElementById('apiResults').innerHTML = '<p class="text-muted">Los resultados aparecerán aquí...</p>';
+            document.getElementById('generatedFiles').innerHTML = '<p class="text-muted">No hay archivos generados aún.</p>';
+        }
+
+        async function downloadXML() {
+            if (!currentXmlFile) {
+                alert('No hay archivo XML para descargar');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/api/v1/xml/${currentXmlFile}`);
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = currentXmlFile;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                } else {
+                    alert('Error al descargar el archivo XML');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+
+        async function viewXML(filename) {
+            try {
+                const response = await fetch(`${API_BASE}/api/v1/xml/${filename}`);
+                if (response.ok) {
+                    const xmlContent = await response.text();
+                    document.getElementById('xmlContent').textContent = xmlContent;
+                    currentXmlFile = filename;
+                    
+                    const modal = new bootstrap.Modal(document.getElementById('xmlModal'));
+                    modal.show();
+                } else {
+                    alert('Error al cargar el archivo XML');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // Funciones de utilidad
+        function showApiStatus(type, message, data) {
+            const statusDiv = document.getElementById('apiStatus');
+            const alertClass = type === 'success' ? 'alert-success' : 'alert-danger';
+            
+            statusDiv.innerHTML = `
+                <div class="alert ${alertClass} mb-0">
+                    <strong>${message}</strong>
+                    ${data ? `<pre class="mt-2 mb-0">${JSON.stringify(data, null, 2)}</pre>` : ''}
+                </div>
+            `;
+        }
+
+        function showApiResult(type, title, data) {
+            const resultsDiv = document.getElementById('apiResults');
+            let alertClass = 'alert-info';
+            let icon = 'bi-info-circle';
+
+            switch (type) {
+                case 'success':
+                    alertClass = 'alert-success';
+                    icon = 'bi-check-circle';
+                    break;
+                case 'error':
+                    alertClass = 'alert-danger';
+                    icon = 'bi-x-circle';
+                    break;
+                case 'warning':
+                    alertClass = 'alert-warning';
+                    icon = 'bi-exclamation-triangle';
+                    break;
+            }
+
+            resultsDiv.innerHTML = `
+                <div class="alert ${alertClass}">
+                    <h6 class="alert-heading">
+                        <i class="bi ${icon}"></i> ${title}
+                    </h6>
+                    <pre class="mb-0">${JSON.stringify(data, null, 2)}</pre>
+                </div>
+            `;
+        }
+
+        function updateGeneratedFiles(result) {
+            const filesDiv = document.getElementById('generatedFiles');
+            
+            if (result.status === 'SUCCESS' || result.status === 'success') {
+                const fileName = result.data?.fileName || 'archivo.xml';
+                const fileSize = result.data?.fileSize ? `(${(result.data.fileSize / 1024).toFixed(1)} KB)` : '';
+                const zipPath = result.xmlPath ? result.xmlPath.replace('.xml', '.zip') : '';
+                
+                filesDiv.innerHTML = `
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">
+                                    <i class="bi bi-file-earmark-code"></i> ${fileName}
+                                </h6>
+                                <small class="text-muted">${fileSize}</small>
+                            </div>
+                            <p class="mb-1">XML UBL 2.1 Firmado Digitalmente</p>
+                            <div class="btn-group btn-group-sm">
+                                <button class="btn btn-outline-primary" onclick="viewXML('${fileName}')">
+                                    <i class="bi bi-eye"></i> Ver
+                                </button>
+                                <button class="btn btn-outline-success" onclick="downloadXML()">
+                                    <i class="bi bi-download"></i> Descargar
+                                </button>
+                            </div>
+                        </div>
+                        ${zipPath ? `
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">
+                                    <i class="bi bi-file-earmark-zip"></i> ${fileName.replace('.xml', '.zip')}
+                                </h6>
+                                <small class="text-muted">ZIP</small>
+                            </div>
+                            <p class="mb-1">Archivo empaquetado para SUNAT</p>
+                            <small class="text-success">
+                                <i class="bi bi-check-circle"></i> Listo para envío a SUNAT
+                            </small>
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+            }
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar plantilla de factura por defecto
+            loadTemplate('factura');
+            
+            // Verificar estado de la API al cargar
+            checkHealth();
+        });
+
+        // Cambio automático de serie según tipo de documento
+        document.getElementById('documentType').addEventListener('change', function() {
+            const currentJson = document.getElementById('jsonEditor').value;
+            if (currentJson) {
+                try {
+                    const data = JSON.parse(currentJson);
+                    const docType = this.value;
+                    
+                    if (data.document) {
+                        data.document.type = docType;
+                        
+                        // Cambiar serie según tipo
+                        switch (docType) {
+                            case '01':
+                                data.document.series = 'F001';
+                                break;
+                            case '03':
+                                data.document.series = 'B001';
+                                break;
+                            case '07':
+                                data.document.series = 'NC001';
+                                break;
+                            case '08':
+                                data.document.series = 'ND001';
+                                break;
+                        }
+                        
+                        document.getElementById('jsonEditor').value = JSON.stringify(data, null, 2);
+                    }
+                } catch (e) {
+                    // Ignore JSON parsing errors
+                }
+            }
+        });
+    </script>
+</body>
+</html>
