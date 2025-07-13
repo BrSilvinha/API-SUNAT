@@ -93,6 +93,8 @@ type UBLInvoice struct {
 	XmlnsCbc                string                `xml:"xmlns:cbc,attr"`
 	XmlnsDs                 string                `xml:"xmlns:ds,attr"`
 	XmlnsExt                string                `xml:"xmlns:ext,attr"`
+	XmlnsXsi                string                `xml:"xmlns:xsi,attr"`
+	XsiSchemaLocation       string                `xml:"xsi:schemaLocation,attr"`
 	UBLExtensions           *UBLExtensions        `xml:"ext:UBLExtensions,omitempty"`
 	UBLVersionID            string                `xml:"cbc:UBLVersionID"`
 	CustomizationID         UBLIDWithScheme       `xml:"cbc:CustomizationID"`

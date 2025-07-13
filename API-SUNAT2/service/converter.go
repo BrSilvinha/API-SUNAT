@@ -195,8 +195,11 @@ func (c *UBLConverter) ConvertToUBL(doc *model.BusinessDocument) ([]byte, error)
 
 func (c *UBLConverter) convertToInvoice(doc *model.BusinessDocument) ([]byte, error) {
 	invoice := &model.UBLInvoice{
-		XMLName: xml.Name{Local: "Invoice"},
-		Xmlns:   "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2",
+		XMLName: xml.Name{
+			Space: "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2",
+			Local: "Invoice",
+		},
+		// Remover o corregir las URLs problemáticas
 		UBLExtensions: &model.UBLExtensions{
 			UBLExtension: model.UBLExtension{
 				ExtensionContent: model.ExtensionContent{
@@ -212,8 +215,8 @@ func (c *UBLConverter) convertToInvoice(doc *model.BusinessDocument) ([]byte, er
 		ProfileID: model.UBLIDWithScheme{
 			SchemeAgencyName: "PE:SUNAT",
 			SchemeName:       "Tipo de Operacion",
-			SchemeURI:        "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo51",
-			Value:            "0101",
+			// Remover SchemeURI problemática o usar una URL local
+			Value: "0101",
 		},
 		ID:        fmt.Sprintf("%s-%s", doc.Series, doc.Number),
 		IssueDate: doc.IssueDate,
@@ -223,9 +226,9 @@ func (c *UBLConverter) convertToInvoice(doc *model.BusinessDocument) ([]byte, er
 			ListAgencyName: "PE:SUNAT",
 			ListID:         "0101",
 			ListName:       "Tipo de Documento",
-			ListURI:        "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01",
-			Name:           "Tipo de Operacion",
-			Value:          doc.Type,
+			// Remover ListURI problemática
+			Name:  "Tipo de Operacion",
+			Value: doc.Type,
 		},
 		DocumentCurrencyCode: model.UBLIDWithScheme{
 			SchemeAgencyName: "United Nations Economic Commission for Europe",
@@ -392,12 +395,13 @@ func (c *UBLConverter) getDocumentNote(docType string) string {
 func (c *UBLConverter) addNamespaces(xmlData []byte, rootElement string) []byte {
 	xmlStr := string(xmlData)
 
-	// Agregar namespaces requeridos
+	// Usar URLs locales o URLs que funcionen correctamente
 	namespaces := `xmlns="urn:oasis:names:specification:ubl:schema:xsd:` + rootElement + `-2" ` +
 		`xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" ` +
 		`xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" ` +
 		`xmlns:ds="http://www.w3.org/2000/09/xmldsig#" ` +
-		`xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"`
+		`xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" ` +
+		`xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"`
 
 	// Reemplazar el elemento raíz con namespaces
 	oldRoot := fmt.Sprintf("<%s>", rootElement)
@@ -405,6 +409,14 @@ func (c *UBLConverter) addNamespaces(xmlData []byte, rootElement string) []byte 
 	xmlStr = strings.Replace(xmlStr, oldRoot, newRoot, 1)
 
 	return []byte(xmlStr)
+}
+
+// Función auxiliar para crear declaración XML completa
+func (c *UBLConverter) createXMLDeclaration(xmlData []byte, rootElement string) []byte {
+	xmlDeclaration := `<?xml version="1.0" encoding="UTF-8"?>`
+	xmlWithNamespaces := c.addNamespaces(xmlData, rootElement)
+
+	return []byte(fmt.Sprintf("%s\n%s", xmlDeclaration, string(xmlWithNamespaces)))
 }
 
 func (c *UBLConverter) createDiscrepancyResponse(ref *model.DocumentReference) []model.UBLDiscrepancyResponse {

@@ -1,79 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<UBLExtensions>
-  <ext:UBLExtension>
-    <ext:ExtensionContent>
-      <ds:SignedInfo>
-        <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></ds:CanonicalizationMethod>
-        <ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></ds:SignatureMethod>
-        <ds:Reference URI="">
-          <ds:Transforms>
-            <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform>
-            <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></ds:Transform>
-          </ds:Transforms>
-          <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></ds:DigestMethod>
-          <ds:DigestValue>cR/gBZ4DnyMa7Ls0uSbvPUeLlejCKR6FRx5PYVHTjHU=</ds:DigestValue>
-        </ds:Reference>
-      </ds:SignedInfo>
-      <ds:SignatureValue>Fg6p27GOE697mOsKLmu/PuUT+3mgFpg3WKEOiE+PdOTkIstSfO0UAN+IZygkbJGUsUbqTl1hR+g+H1QYuf1b+DjsATeE01vKVDyW9kiWs26YxAT+ZlsVKmffBkmPWLfi0mnxtv6ja701xEksZMs7cBGTj+F/OxqSs/XOBEz2Kl+ZOnmcr5QCJsaYrOQ9KZW60PPWr1Z24afnvAMKZWb3JB95YRJORtqwFygEBndxazNqREUr4ZMd1Cglw/VqWjFMKmJy17pgXtIqqzPk296RX3hnH11CzmN2cl7il7uUUw/rEil+9StIoWpLUwvxMmRGCH2o90RfuXtxkgJPrr+LWg==</ds:SignatureValue>
-      <ds:KeyInfo>
-        <ds:X509Data>
-          <ds:X509Certificate>MIIFnjCCBIagAwIBAgIIA6akYTIEsrwwDQYJKoZIhvcNAQELBQAwRjEkMCIGA1UEAwwbTGxhbWEucGUgU0hBMjU2IFN0YW5kYXJkIENBMREwDwYDVQQKDAhMTEFNQS5QRTELMAkGA1UEBhMCUEUwHhcNMjMwMjI0MjExNzExWhcNMjYwMjIzMjExNzAwWjCCATgxQjBABgNVBAkMOUNBTC4gUEFSUVVFIElORFVTVFJJQUwgTFQuIDQgTVouIEUgWi5JLiBQQVJRVUUgSU5EVVNUUklBTDEuMCwGCSqGSIb3DQEJARYfY2FybG9zLmFycmlvbGFAZ3J1cG9jaGlhcHBlLmNvbTEsMCoGA1UEAwwjU09GVFdBUkUgREUgRkFDVFVSQUNJT04gRUxFQ1RST05JQ0ExLDAqBgNVBAsMI0ZBQ1RVUkEgRUxFQ1RST05JQ0EgUlVDIDIwMTAzMTI5MDYxMSEwHwYDVQQLDBhWYWxpZGFkbyBwb3IgTGxhbWEucGUgRVIxITAfBgNVBAoMGENPTUVSQ0lBTCBMQVZBR05BIFMuQS5DLjETMBEGA1UEBwwKTEFNQkFZRVFVRTELMAkGA1UEBhMCUEUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCeNnUF1ubEHSYm3fVE7G1KhH01o0r+PJPWG/t0+XLAqmqtgnrOpkBpemu3711jCI///b1/q6lvpeTrcJVR6wBqI1PKGmxMuxI8/Wt2TZ213DqroqZnDcYyIWPOzJCEpau9XVw44Fb9CNqzHiz0yoLjy+pu2ZkTOj2+dlhWGkljOjx+c7/vCBpZL4uPLVrZhrThFIh8fHg8K6HaV0CA3BkkkVshqhCZ2h8m7/3K843EWmTmQc7OrNkmHkuTWyjeSaX3seq4zLlOknS2MX67fyfP9VACkKM51xJ64ztdoDSp4PcxYpnYudHMqRa7KGGsca2sL9FqMaisZzEfeiB3CjbjAgMBAAGjggGaMIIBljAMBgNVHRMBAf8EAjAAMB8GA1UdIwQYMBaAFF2IW63rZfv+aKLk2W89V3Ki7yuZMGcGCCsGAQUFBwEBBFswWTA1BggrBgEFBQcwAoYpaHR0cDovL2NydC5sbGFtYS5wZS9sbGFtYXBlc3RhbmRhcmRjYS5jZXIwIAYIKwYBBQUHMAGGFGh0dHA6Ly9vY3NwLmxsYW1hLnBlMCoGA1UdEQQjMCGBH2Nhcmxvcy5hcnJpb2xhQGdydXBvY2hpYXBwZS5jb20wRgYDVR0gBD8wPTA7Bg0rBgEEAYOXdwABAAMBMCowKAYIKwYBBQUHAgEWHGh0dHBzOi8vbGxhbWEucGUvcmVwb3NpdG9yeS8wHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMDoGA1UdHwQzMDEwL6AtoCuGKWh0dHA6Ly9jcmwubGxhbWEucGUvbGxhbWFwZXN0YW5kYXJkY2EuY3JsMB0GA1UdDgQWBBTtcyJ6DapoAmqrWQeMwPMQFFnK7DAOBgNVHQ8BAf8EBAMCBsAwDQYJKoZIhvcNAQELBQADggEBAEL+9dAYFfWm3UAzlkK251Y6k7iODmw44inWI1QCEW5XMDCTrCBtrxdOegZHV3OiksxqQKxJHDMTZeS0VQx9EysXDbCT8W6+h8osyK+3NsQ/RE2bWKXOQCDsvBx1fZBvkzxijkivdh532LTAumUCVbKE+NKWPAs2YqhvooUHzgqrCSEUiG59td2obu6rMrDfbQkZg3BtEPazBsyl1RNKfmW3hevZbaAdqDYO0QhXALF5OxiNlebtK9HvnXneO7uFero76feKxEEoguoy08CuO6tcmYbvkFTFSNz+TOF2MvLRJ31d8NXWsqlowk5ILgRWwHIWyaGOrZ0ZPJWk4UMcyxo=</ds:X509Certificate>
-        </ds:X509Data>
-      </ds:KeyInfo>
-    </ext:ExtensionContent>
-  </ext:UBLExtension>
-</UBLExtensions>
-<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+<Invoice xmlns="" xmlns:cac="" xmlns:cbc="" xmlns:ds="" xmlns:ext="" xmlns:xsi="" xsi:schemaLocation="">
+  <UBLExtensions>
+    <ext:UBLExtension>
+      <ext:ExtensionContent>
+        <ds:Signature>
+          <ds:SignedInfo>
+            <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></ds:CanonicalizationMethod>
+            <ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></ds:SignatureMethod>
+            <ds:Reference URI="">
+              <ds:Transforms>
+                <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform>
+                <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></ds:Transform>
+              </ds:Transforms>
+              <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></ds:DigestMethod>
+              <ds:DigestValue>PFfnTuQ/mrGkEm+IZzSLBkJueuDkdDkTxc8KmBB+NFI=</ds:DigestValue>
+            </ds:Reference>
+          </ds:SignedInfo>
+          <ds:SignatureValue>D5V6iPVpspDe1zzRz3W6MrDd/wzLBA++xhadrKwuCsqxHMOpCI4rJws5yzqBY6TtfgG65n76Lq4naTccOr7B7OXRoe4U8UAn8MyeOw9klzo6bMjNNCUrtyrHpUdioESFgQF6+f1yn4nZQw/2My8p8D6OlpK/xi18LQKfSD87vWwxo1ZVMu4e+ZU1xeYchY6AOL+x+KmS00DnDuICGzy26fESaVy0Xw97ERG5yJ+Wpq15y9Jo8IBaJuI5dTFoba3gJaQBwLV5F5ybsi6mRlrsQeYDRGuk6ZIyhZvrV82SzAMs4HgvfYMxI0k8apD+SvxuzCrAiC3qqW456IrTFPpxYA==</ds:SignatureValue>
+          <ds:KeyInfo>
+            <ds:X509Data>
+              <ds:X509Certificate>MIIFnjCCBIagAwIBAgIIA6akYTIEsrwwDQYJKoZIhvcNAQELBQAwRjEkMCIGA1UEAwwbTGxhbWEucGUgU0hBMjU2IFN0YW5kYXJkIENBMREwDwYDVQQKDAhMTEFNQS5QRTELMAkGA1UEBhMCUEUwHhcNMjMwMjI0MjExNzExWhcNMjYwMjIzMjExNzAwWjCCATgxQjBABgNVBAkMOUNBTC4gUEFSUVVFIElORFVTVFJJQUwgTFQuIDQgTVouIEUgWi5JLiBQQVJRVUUgSU5EVVNUUklBTDEuMCwGCSqGSIb3DQEJARYfY2FybG9zLmFycmlvbGFAZ3J1cG9jaGlhcHBlLmNvbTEsMCoGA1UEAwwjU09GVFdBUkUgREUgRkFDVFVSQUNJT04gRUxFQ1RST05JQ0ExLDAqBgNVBAsMI0ZBQ1RVUkEgRUxFQ1RST05JQ0EgUlVDIDIwMTAzMTI5MDYxMSEwHwYDVQQLDBhWYWxpZGFkbyBwb3IgTGxhbWEucGUgRVIxITAfBgNVBAoMGENPTUVSQ0lBTCBMQVZBR05BIFMuQS5DLjETMBEGA1UEBwwKTEFNQkFZRVFVRTELMAkGA1UEBhMCUEUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCeNnUF1ubEHSYm3fVE7G1KhH01o0r+PJPWG/t0+XLAqmqtgnrOpkBpemu3711jCI///b1/q6lvpeTrcJVR6wBqI1PKGmxMuxI8/Wt2TZ213DqroqZnDcYyIWPOzJCEpau9XVw44Fb9CNqzHiz0yoLjy+pu2ZkTOj2+dlhWGkljOjx+c7/vCBpZL4uPLVrZhrThFIh8fHg8K6HaV0CA3BkkkVshqhCZ2h8m7/3K843EWmTmQc7OrNkmHkuTWyjeSaX3seq4zLlOknS2MX67fyfP9VACkKM51xJ64ztdoDSp4PcxYpnYudHMqRa7KGGsca2sL9FqMaisZzEfeiB3CjbjAgMBAAGjggGaMIIBljAMBgNVHRMBAf8EAjAAMB8GA1UdIwQYMBaAFF2IW63rZfv+aKLk2W89V3Ki7yuZMGcGCCsGAQUFBwEBBFswWTA1BggrBgEFBQcwAoYpaHR0cDovL2NydC5sbGFtYS5wZS9sbGFtYXBlc3RhbmRhcmRjYS5jZXIwIAYIKwYBBQUHMAGGFGh0dHA6Ly9vY3NwLmxsYW1hLnBlMCoGA1UdEQQjMCGBH2Nhcmxvcy5hcnJpb2xhQGdydXBvY2hpYXBwZS5jb20wRgYDVR0gBD8wPTA7Bg0rBgEEAYOXdwABAAMBMCowKAYIKwYBBQUHAgEWHGh0dHBzOi8vbGxhbWEucGUvcmVwb3NpdG9yeS8wHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMDoGA1UdHwQzMDEwL6AtoCuGKWh0dHA6Ly9jcmwubGxhbWEucGUvbGxhbWFwZXN0YW5kYXJkY2EuY3JsMB0GA1UdDgQWBBTtcyJ6DapoAmqrWQeMwPMQFFnK7DAOBgNVHQ8BAf8EBAMCBsAwDQYJKoZIhvcNAQELBQADggEBAEL+9dAYFfWm3UAzlkK251Y6k7iODmw44inWI1QCEW5XMDCTrCBtrxdOegZHV3OiksxqQKxJHDMTZeS0VQx9EysXDbCT8W6+h8osyK+3NsQ/RE2bWKXOQCDsvBx1fZBvkzxijkivdh532LTAumUCVbKE+NKWPAs2YqhvooUHzgqrCSEUiG59td2obu6rMrDfbQkZg3BtEPazBsyl1RNKfmW3hevZbaAdqDYO0QhXALF5OxiNlebtK9HvnXneO7uFero76feKxEEoguoy08CuO6tcmYbvkFTFSNz+TOF2MvLRJ31d8NXWsqlowk5ILgRWwHIWyaGOrZ0ZPJWk4UMcyxo=</ds:X509Certificate>
+            </ds:X509Data>
+          </ds:KeyInfo>
+        </ds:Signature>
+      </ext:ExtensionContent>
+    </ext:UBLExtension>
+  </UBLExtensions>
   <ext:UBLExtensions>
     <ext:UBLExtension>
       <ext:ExtensionContent>
-        <ds:SignedInfo>
-          <ds:CanonicalizationMethod Algorithm=""></ds:CanonicalizationMethod>
-          <ds:SignatureMethod Algorithm=""></ds:SignatureMethod>
-          <ds:Reference URI="">
-            <ds:Transforms></ds:Transforms>
-            <ds:DigestMethod Algorithm=""></ds:DigestMethod>
-            <ds:DigestValue></ds:DigestValue>
-          </ds:Reference>
-        </ds:SignedInfo>
-        <ds:SignatureValue></ds:SignatureValue>
-        <ds:KeyInfo>
-          <ds:X509Data>
-            <ds:X509Certificate></ds:X509Certificate>
-          </ds:X509Data>
-        </ds:KeyInfo>
+        <ds:Signature>
+          <ds:SignedInfo>
+            <ds:CanonicalizationMethod Algorithm=""></ds:CanonicalizationMethod>
+            <ds:SignatureMethod Algorithm=""></ds:SignatureMethod>
+            <ds:Reference URI="">
+              <ds:Transforms></ds:Transforms>
+              <ds:DigestMethod Algorithm=""></ds:DigestMethod>
+              <ds:DigestValue></ds:DigestValue>
+            </ds:Reference>
+          </ds:SignedInfo>
+          <ds:SignatureValue></ds:SignatureValue>
+          <ds:KeyInfo>
+            <ds:X509Data>
+              <ds:X509Certificate></ds:X509Certificate>
+            </ds:X509Data>
+          </ds:KeyInfo>
+        </ds:Signature>
       </ext:ExtensionContent>
     </ext:UBLExtension>
   </ext:UBLExtensions>
   <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
-<UBLSignature>
-  <cbc:ID>b003-123456</cbc:ID>
-  <cac:SignatoryParty>
-    <cac:PartyIdentification>
-      <cbc:ID>20123456786</cbc:ID>
-    </cac:PartyIdentification>
-    <cac:PartyName>
-      <cbc:Name>RODRIGO S.A.C</cbc:Name>
-    </cac:PartyName>
-  </cac:SignatoryParty>
-  <cac:DigitalSignatureAttachment>
-    <cac:ExternalReference>
-      <cbc:URI>#SignatureSP</cbc:URI>
-    </cac:ExternalReference>
-  </cac:DigitalSignatureAttachment>
-</UBLSignature>
   <cbc:CustomizationID schemeAgencyName="PE:SUNAT">2.0</cbc:CustomizationID>
-  <cbc:ProfileID schemeAgencyName="PE:SUNAT" schemeName="Tipo de Operacion" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo51">0101</cbc:ProfileID>
-  <cbc:ID>b003-123456</cbc:ID>
+  <cbc:ProfileID schemeAgencyName="PE:SUNAT" schemeName="Tipo de Operacion">0101</cbc:ProfileID>
+  <cbc:ID>F001-123456</cbc:ID>
   <cbc:IssueDate>2024-06-07</cbc:IssueDate>
   <cbc:IssueTime>10:30:00</cbc:IssueTime>
   <cbc:DueDate>2024-06-07</cbc:DueDate>
-  <cbc:InvoiceTypeCode listAgencyName="PE:SUNAT" listID="0101" listName="Tipo de Documento" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01" name="Tipo de Operacion">03</cbc:InvoiceTypeCode>
+  <cbc:InvoiceTypeCode listAgencyName="PE:SUNAT" listID="0101" listName="Tipo de Documento" name="Tipo de Operacion">01</cbc:InvoiceTypeCode>
   <cbc:DocumentCurrencyCode schemeAgencyName="United Nations Economic Commission for Europe" schemeID="ISO 4217 Alpha" schemeName="Currency">PEN</cbc:DocumentCurrencyCode>
   <cbc:LineCountNumeric>1</cbc:LineCountNumeric>
-  <cbc:Note>TRANSFERENCIA GRATUITA DE UN BIEN Y/O SERVICIO PRESTADO GRATUITAMENTE</cbc:Note>
   <cac:Signature>
-    <cbc:ID>b003-123456</cbc:ID>
+    <cbc:ID>F001-123456</cbc:ID>
     <cac:SignatoryParty>
       <cac:PartyIdentification>
         <cbc:ID>20123456786</cbc:ID>
